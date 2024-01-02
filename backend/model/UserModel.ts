@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -25,4 +26,16 @@ const UserSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model("User",UserSchema)
+UserSchema.pre("save", async function (next){
+  if(this.isModified('password')){
+    this.password = await bcrypt.hash(this.password, 8)
+  }
+  next()
+})
+
+
+
+const User = mongoose.model('User', UserSchema);
+
+export default User;
+// module.exports = mongoose.model("User",UserSchema)
