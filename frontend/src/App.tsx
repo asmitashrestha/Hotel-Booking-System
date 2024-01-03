@@ -4,7 +4,7 @@ import Header from "./components/Header"
 import Home from "./pages/Home"
 import SignIn from "./pages/SignIn"
 import Footer from "./components/Footer"
-import Signup from "./pages/Signup"
+import Register from "./pages/Register"
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
       <Routes>
         <Route path='/'  element={<Home/>}/>
         <Route path='/signin'  element={<SignIn/>}/>
-        <Route path='/signup'  element={<Signup/>}/>
+        <Route path='/register'  element={<Register/>}/>
       </Routes>
      <Footer/>
     </div>
