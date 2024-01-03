@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import User from "../model/UserModel";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+
 export default async function verifyUserLogin(req,res){
   const errors = validationResult(req)
   if(!errors.isEmpty()){

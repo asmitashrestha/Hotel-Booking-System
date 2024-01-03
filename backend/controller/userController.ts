@@ -31,7 +31,7 @@ export default async function createNewUser(req,res){
         secure: process.env.NODE_ENV === 'production',
         maxAge: 86400000,
       })
-      return res.sendStatus(200).json({
+      return res.status(200).json({
         msg:"User Registered Successfully"
       })
   } catch (error) {
