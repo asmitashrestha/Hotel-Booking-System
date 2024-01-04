@@ -1,13 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
+import SignOutButton from "./SignOutButton";
 
 const Header = () => {
-  const navigate = useNavigate();
   const { isLoggedIn } = useAppContext();
-
-  const signOut = (e) => {
-   navigate('/signin')
-  };
 
   return (
     <div className="bg-blue-800 h-30 p-7">
@@ -26,7 +22,7 @@ const Header = () => {
             <>
               <Link to="/my-booking">My Bookings</Link>
               <Link to="/my-tour">My Package</Link>
-              <button onClick={signOut}>Sign Out</button>
+              <SignOutButton/>
             </>
           ) : (
             <Link

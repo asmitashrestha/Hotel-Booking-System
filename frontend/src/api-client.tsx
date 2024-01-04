@@ -48,3 +48,19 @@ export const validateToken = async () => {
   }
   return response.json();
 };
+
+
+export const signOut = async()=>{
+  const response = await fetch(
+    "http://localhost:5000/api/users/signout",
+    {
+      method: "POST",
+      credentials: "include",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error during sign out!");
+  }
+  return response.json();
+}
