@@ -3,6 +3,8 @@ import User from "../model/UserModel";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
+
+// for login/signin
 export default async function verifyUserLogin(req,res){
   const errors = validationResult(req)
   if(!errors.isEmpty()){

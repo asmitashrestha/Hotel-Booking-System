@@ -2,6 +2,7 @@ import express from "express";
 import createNewUser from "../controller/userController";
 import { check } from "express-validator";
 import verifyUserLogin from "../controller/authController";
+import verifyToken from "../middlewares/auth";
 const router = express.Router();
 
 router.post(
@@ -22,5 +23,9 @@ router.post("/signin",[
 ],
 verifyUserLogin
 )
+
+router.get('/validate-token', verifyToken, (req, res) => {
+  res.status(200).send({ userId: req.userId });
+})
 
 module.exports = router;

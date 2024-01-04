@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import * as apiClient from "../api-client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
 
 export type RegisterFormData = {
   name: string;
@@ -14,39 +13,32 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
+  const navigate = useNavigate()
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormData>();
+  
 
-  // const mutation = useMutation(apiClient.register, {
-  //   onSuccess: () => {
-  //     console.log("Registration successful!");
-  //     toast.success("Registration successful!")
-  //   },
-  //   onError: (error: Error) => {
-  //     console.log(error.message);
-  //     toast.error("User already exists")
-  //   },
-  // });
 
   const mutation = useMutation(apiClient.register, {
     onSuccess: () => {
       console.log("Registration successful!");
       toast.success("Registration successful!", {
         position: toast.POSITION.TOP_RIGHT, // Adjust based on your desired position
-        autoClose: 1000, // Adjust the duration the toast is displayed
-        hideProgressBar: true,
+        autoClose: 500, // Adjust the duration the toast is displayed
+        hideProgressBar: false,
       });
+      navigate('/')
     },
     onError: (error: Error) => {
       console.log(error.message);
       toast.error("User already exists", {
         position: toast.POSITION.TOP_RIGHT, // Adjust based on your desired position
-        autoClose: 1000, // Adjust the duration the toast is displayed
-        hideProgressBar: true,
+        autoClose: 500, // Adjust the duration the toast is displayed
+        hideProgressBar: false,
       });
     },
   });
@@ -96,7 +88,7 @@ const Register = () => {
               <div>
                 <div className="flex items-center justify-between">
                   <label
-                    htmlFor="name"
+                    htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Email
