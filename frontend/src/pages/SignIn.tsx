@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,7 @@ export type SignInFormData = {
 
 const SignIn = () => {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const {
     register,
     handleSubmit,
@@ -21,8 +22,9 @@ const SignIn = () => {
 
 
   const mutation = useMutation(apiClient.signIn, {
-    onSuccess: () => {
+    onSuccess: async () => {
       console.log("Login successful!");
+      await queryClient.invalidateQueries("validateToken")
       toast.success("Login successful!", {
         position: toast.POSITION.TOP_RIGHT, // Adjust based on your desired position
         autoClose: 500, // Adjust the duration the toast is displayed
