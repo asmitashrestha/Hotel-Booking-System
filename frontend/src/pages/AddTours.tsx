@@ -1,4 +1,4 @@
-import ManagePackageForm from "../components/ManagePackageForm"
+import ManagePackageForm from "../components/managetourpackage/ManagePackageForm"
 
 const AddTours = () => {
   return (
