@@ -6,7 +6,7 @@ export type TourType= {
   city:string;
   description:string;
   type:string;
-  peopleCount:number;
+  countPeople:number;
   facilities:string[];
   pricePerPackage:number;
   starRating:number;
@@ -31,7 +31,7 @@ const TourSchema = new mongoose.Schema<TourType>({
     type:String,
     required:true
   },
-  peopleCount:{
+  countPeople:{
     type:Number,
     required:true
   },

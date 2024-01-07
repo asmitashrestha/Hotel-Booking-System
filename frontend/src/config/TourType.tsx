@@ -12,5 +12,5 @@ export const TourType = [
 export const TourFacilities = [
   "Free-Wifi",
   "Transportation",
-  "Food and Hotel"
+  "Food and Hotel",
 ]
