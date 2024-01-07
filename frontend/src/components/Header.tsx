@@ -21,7 +21,7 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <Link to="/my-booking">My Bookings</Link>
-              <Link to="/my-tour">My Package</Link>
+              <Link to="/addtour">Package Available</Link>
               <SignOutButton/>
             </>
           ) : (

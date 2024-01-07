@@ -1,5 +1,6 @@
 const express = require('express')
 const userRoutes = require('./routes/users')
+const tourRoutes = require('./routes/myTours')
 import cors from "cors"
 const cookierParser = require("cookie-parser")
 import {v2 as cloudinary} from "cloudinary"
@@ -19,10 +20,14 @@ require('./config/db')
 app.use(express.json());
 app.use(express.urlencoded({ extended : true}))
 app.use(cookierParser())
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL,
+//   credentials: true,
+// }))
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   credentials: true,
-}))
+}));
 
 
 app.get('/api', (req, res) => {
@@ -32,6 +37,7 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api/users',userRoutes)
+app.use('/api/my-package',tourRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

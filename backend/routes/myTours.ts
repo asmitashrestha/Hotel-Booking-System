@@ -1,17 +1,39 @@
-import { myTourList } from "../controller/tourConctroller"
+import express, { Request, Response } from "express";
+import multer from "multer";
+import verifyToken from "../middlewares/auth";
+import { body } from "express-validator";
+import { myTourList } from "../controller/tourConctroller";
 
-const express = require('express')
-import multer from 'multer'
-const router = express.Router()
 
+const router = express.Router();
 
-const storage = multer.memoryStorage()
+const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
-  limits:{
-    fileSize:5*1024*1024  //MB
-  }
-})
-// api.mytour
-router.post("/mytour",upload.array('imageFiles',6), myTourList)
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
+});
 
+router.post(
+  "/",
+  verifyToken,
+  [
+    body("name").notEmpty().withMessage("Name is required"),
+    body("city").notEmpty().withMessage("City is required"),
+    body("description").notEmpty().withMessage("Description is required"),
+    body("type").notEmpty().withMessage("Tour type is required"),
+    body("pricePerPackage")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Price per package is required and must be a number"),
+    body("facilities")
+      .notEmpty()
+      .isArray()
+      .withMessage("Facilities are required"),
+  ],
+  upload.array("imageFiles", 6),
+  myTourList
+)
+
+module.exports = router
