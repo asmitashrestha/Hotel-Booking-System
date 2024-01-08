@@ -16,7 +16,7 @@ const upload = multer({
 });
 
 router.post(
-  "/",
+  "/addtour",
   verifyToken,
   [
     body("name").notEmpty().withMessage("Name is required"),

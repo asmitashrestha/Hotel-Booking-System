@@ -51,11 +51,11 @@ const TourSchema = new mongoose.Schema<TourType>({
   },
   imageUrls:[{
     type:String,
-    required:true
+    // required:true
   }],
   lastUpdated:{
     type:Date,
-    required:true
+    // required:true
   }
 },
 {

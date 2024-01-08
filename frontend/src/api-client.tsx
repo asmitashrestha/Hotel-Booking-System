@@ -92,5 +92,41 @@ export const signOut = async () => {
 
 
 
+// export const addMyTour = async (tourFormData : FormData) =>{
+//   const response = await fetch(`http://localhost:5000/api/my-package/addtour`,{
+//     method:'POST',
+//     credentials:"include",
+//     body:tourFormData,
+//   })
+//   if(!response.ok){
+//     throw new Error("Failed to add tour")
+//   }
+//   return response.json()
+// }
+
+
+export const addMyTour = async (tourFormData: FormData) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/my-package/addtour`, {
+      method: 'POST',
+      credentials: 'include',
+      body: tourFormData,
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error adding tour. Server response:', errorText);
+      throw new Error('Failed to add tour');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error adding tour:', error.message);
+    throw error; // Rethrow the error for further handling if needed
+  }
+};
+
+
+
 
 

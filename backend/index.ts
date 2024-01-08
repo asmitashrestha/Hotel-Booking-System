@@ -3,9 +3,14 @@ const userRoutes = require('./routes/users')
 const tourRoutes = require('./routes/myTours')
 import cors from "cors"
 const cookierParser = require("cookie-parser")
-import {v2 as cloudinary} from "cloudinary"
+import { v2 as cloudinary } from "cloudinary"
 const app = express();
 
+require('dotenv').config()
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
 
 cloudinary.config({
   cloud_name : process.env.ClOUDINARY_CLOUD_NAME,
@@ -14,20 +19,18 @@ cloudinary.config({
 })
 
 const PORT = process.env.PORT || 5000
-require('dotenv').config()
-require('./config/db')
 
+require('./config/db')
+app.use(cookierParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended : true}))
-app.use(cookierParser())
+
 // app.use(cors({
 //   origin: process.env.FRONTEND_URL,
 //   credentials: true,
 // }))
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-}));
+
+
 
 
 app.get('/api', (req, res) => {
