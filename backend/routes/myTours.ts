@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import multer from "multer";
 import verifyToken from "../middlewares/auth";
 import { body } from "express-validator";
-import { getTourList, myTourList } from "../controller/tourConctroller";
+import { editTour, fetchParticularTour, getTourList, myTourList } from "../controller/tourConctroller";
 
 
 const router = express.Router();
@@ -38,4 +38,8 @@ router.post(
 
 router.get('/addtour', verifyToken,getTourList)
 
+router.get('/addtour/:id', verifyToken , fetchParticularTour)
+
+
+router.put("/addtour/:tourId", verifyToken , upload.array("imageFiles"), editTour)
 module.exports = router

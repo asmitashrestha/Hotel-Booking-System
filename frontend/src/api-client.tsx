@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { TourType } from "../../backend/model/PackageModel";
+import { TourType } from "../../backend/model/TourModel";
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch("http://localhost:5000/api/users/register", {
@@ -152,3 +152,29 @@ export const fetchTours = async(): Promise<TourType[]> =>{
 }
 
 
+export const fetchTourById = async(tourId: string): Promise<TourType> =>{
+  const response = await fetch(`http://localhost:5000/api/my-package/addtour/${tourId}`, {
+    method: 'GET',
+    credentials: 'include',
+  
+  });
+  if(!response.ok){
+    throw new Error("Error fetching tour")
+  }
+
+  return response.json()
+}
+
+export const updateMyTourById = async (tourFormData : FormData) =>{
+  const response = await fetch(`http://localhost:5000/api/my-package/addtour/${tourFormData.get("tourId")}`, {
+    method: 'PUT',
+    body:tourFormData,
+    credentials: 'include',
+  
+  });
+  if(!response.ok){
+    throw new Error("Failed to update Hotel")
+  }
+
+  return response.json()
+}

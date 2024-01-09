@@ -20,7 +20,7 @@ mutate(tourFormData)
 
   return (
     <div>
-      <ManagePackageForm onSave = {handleTourPost} isLoading= {isLoading}/>
+      <ManagePackageForm  onSave = {handleTourPost} isLoading= {isLoading}/>
       <ToastContainer/>
     </div>
   );

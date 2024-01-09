@@ -38,7 +38,7 @@ const Home = () => {
             className=" bg-teal-100 flex-wrap mt-2 ml-4 rounded border-cyan-100"
           >
             <div className="p-4">
-              <img src={tour.imageUrls} alt="" className="w-80 h-64" />
+              <img src={tour.imageUrls[0]} alt="" className="w-80 h-64" />
               <h2 className="font-bold mt-1 flex"> 
               <span className="mt-1 mr-4"><FaLocationDot /></span> 
               <span>{tour.city}</span>
@@ -91,6 +91,7 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <ToastContainer/>
     </div>
   );
 };

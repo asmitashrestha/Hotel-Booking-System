@@ -4,6 +4,8 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import TotalTraveller from "./TotalTraveller";
 import ImagesSection from "./ImagesSection";
+import { TourType } from "../../../../backend/model/TourModel";
+import { useEffect } from "react";
 
 export type TourFormData = {
   city: string;
@@ -18,19 +20,27 @@ export type TourFormData = {
 };
 
 type Props = {
+  tour?: TourType;
   onSave: (tourFormData: FormData) => void;
   isLoading: boolean;
 };
 
-const ManagePackageForm = ({ onSave, isLoading }: Props) => {
+const ManagePackageForm = ({ onSave, isLoading, tour }: Props) => {
   const formMethods = useForm<TourFormData>();
 
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(() => {
+    reset(tour);
+  }, [tour, reset]);
 
   const onSubmit = handleSubmit((formDataJson: TourFormData) => {
     // create new formData & call our API
     // console.log(formData);
     const formData = new FormData();
+    if (tour) {
+      formData.append("tourId", tour._id);
+    }
     formData.append("city", formDataJson.city);
     formData.append("description", formDataJson.description);
     formData.append("type", formDataJson.type);
@@ -42,6 +52,11 @@ const ManagePackageForm = ({ onSave, isLoading }: Props) => {
       formData.append(`facilities[${index}]`, facility);
     });
 
+    if (formDataJson.imageUrls) {
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
+    }
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
     });
@@ -64,7 +79,6 @@ const ManagePackageForm = ({ onSave, isLoading }: Props) => {
              disabled:bg-gray-500"
           >
             {isLoading ? "Posting...." : "Post"}
-            
           </button>
         </span>
       </form>
