@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import { useAppContext } from "./contexts/AppContext";
 import AddTours from "./pages/AddTours";
+import MyTour from "./pages/MyTour";
 
 const App = () => {
   const {isLoggedIn} = useAppContext()
@@ -22,6 +23,7 @@ const App = () => {
         {isLoggedIn && (
           <>
             <Route path="/addtour" element={<AddTours />} />
+            <Route path="/get-tour" element={<MyTour />} />
           </>
         )}
       </Routes>

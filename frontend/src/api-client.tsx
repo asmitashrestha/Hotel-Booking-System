@@ -1,5 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
+import { TourType } from "../../backend/model/PackageModel";
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch("http://localhost:5000/api/users/register", {
@@ -127,6 +128,27 @@ export const addMyTour = async (tourFormData: FormData) => {
 };
 
 
+// get all tour package
 
+export const fetchTours = async(): Promise<TourType[]> =>{
+  try {
+    const response = await fetch(`http://localhost:5000/api/my-package/addtour`, {
+      method: 'GET',
+      credentials: 'include',
+    
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error adding fetch. Server response:', errorText);
+      throw new Error('Failed to fetch tour');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching tour:', error.message);
+    throw error; // Rethrow the error for further handling if needed
+  }
+}
 
 
