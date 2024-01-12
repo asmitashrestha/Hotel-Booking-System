@@ -3,10 +3,13 @@ import ManagePackageForm from "../components/managetourpackage/ManagePackageForm
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as apiClient from "../api-client"
+import { useNavigate } from "react-router-dom";
 
 const AddTours = () => {
+  const navigate = useNavigate()
   const { mutate, isLoading } = useMutation(apiClient.addMyTour, {
     onSuccess: async () => {
+      navigate('/')
       toast.success("Tour added successfully")
     },
     onError: () => {

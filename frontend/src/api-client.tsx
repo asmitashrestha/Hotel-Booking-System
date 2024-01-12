@@ -1,6 +1,7 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import { TourType } from "../../backend/model/TourModel";
+import {TourSearchResponse} from '../../backend/shared/types'
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch("http://localhost:5000/api/users/register", {
@@ -178,3 +179,58 @@ export const updateMyTourById = async (tourFormData : FormData) =>{
 
   return response.json()
 }
+
+export const deleteMyTourById = async (tourFormData : FormData) =>{
+  try {
+     const response = await fetch(`http://localhost:5000/api/my-package/addtour/${tourFormData.get("tourId")}`, {
+    method: 'DELETE',
+    body:tourFormData,
+    credentials: 'include',
+  
+  });
+  if(!response.ok){
+    throw new Error("Failed to delete Hotel")
+  }
+
+
+  return response.json()
+  } catch (error) {
+    console.error("Error deleting tour:", error);
+  }
+ 
+}
+
+
+export type SearchParams = {
+  destination?: string;
+  page?:string;
+}
+
+
+export const searchTour =async (searchParams: SearchParams): Promise<TourSearchResponse>=>{
+
+  const queryParams = new URLSearchParams()
+  queryParams.append("destination", searchParams.destination || "")
+  queryParams.append("page", searchParams.page || "")
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/search-tour/searchs`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    
+    if (!response.ok) {
+      console.error("Error response from server:", response);
+      throw new Error("No search data found");
+    }
+    
+
+
+ return response.json()
+ } catch (error) {
+   console.error("Error searching tour:", error);
+ }
+
+}
+
+

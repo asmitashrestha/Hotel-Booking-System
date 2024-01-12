@@ -17,6 +17,8 @@ export type TourFormData = {
   imageFiles: FileList;
   countPeople: number;
   imageUrls: string[];
+  duration:number;
+  tourDate:Date;
 };
 
 type Props = {
@@ -47,6 +49,8 @@ const ManagePackageForm = ({ onSave, isLoading, tour }: Props) => {
     formData.append("pricePerPackage", formDataJson.pricePerPackage.toString());
     formData.append("starRating", formDataJson.starRating.toString());
     formData.append("countPeople", formDataJson.countPeople.toString());
+    formData.append("duration", formDataJson.duration.toString());
+    formData.append("tourDate", formDataJson.tourDate.toString());
 
     formDataJson.facilities.forEach((facility, index) => {
       formData.append(`facilities[${index}]`, facility);

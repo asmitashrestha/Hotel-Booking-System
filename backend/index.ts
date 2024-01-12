@@ -1,7 +1,8 @@
 const express = require('express')
-const userRoutes = require('./routes/users')
-const tourRoutes = require('./routes/myTours')
 import cors from "cors"
+const userRoutes = require('./routes/users')
+const tourRoutes = require('./routes/tours')
+const searchTourRoutes = require('./routes/toursearch')
 const cookierParser = require("cookie-parser")
 import { v2 as cloudinary } from "cloudinary"
 const app = express();
@@ -41,6 +42,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/users',userRoutes)
 app.use('/api/my-package',tourRoutes)
+app.use('/api/search-tour', searchTourRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

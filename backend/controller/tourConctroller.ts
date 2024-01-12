@@ -1,5 +1,6 @@
 import cloudinary from "cloudinary";
 import Tour, { TourType } from "../model/TourModel";
+import { TourSearchResponse } from "../shared/types";
 
 export const myTourList = async (req, res) => {
   try {
@@ -79,6 +80,49 @@ export const editTour = async (req, res) => {
   }
 };
 
+
+export const deleteTour = async (req, res) => {
+  try {
+    const tour = await Tour.findOneAndDelete({
+      _id: req.params.tourId,
+      userId: req.userId,
+    });
+
+    if (!tour) {
+      res.status(404).json({
+        msg: "Tour not found",
+      });
+      return;
+    }
+
+    // You might want to delete associated images from cloud storage here
+    // For simplicity, let's assume there is a function called deleteImages
+    // that takes an array of image URLs and deletes them from cloud storage.
+    await deleteImages(tour.imageUrls);
+
+    res.status(200).json({
+      msg: "Tour deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: "Something went wrong, can't delete the tour",
+    });
+  }
+};
+
+// Function to delete images from cloud storage
+async function deleteImages(imageUrls) {
+  const deletePromises = imageUrls.map(async (imageUrl) => {
+    // Assuming there is a function in cloudinary or another service to delete an image
+    await cloudinary.v2.uploader.destroy(imageUrl);
+  });
+
+  await Promise.all(deletePromises);
+}
+
+
+
 async function uploadImages(imageFiles: Express.Multer.File[]) {
   const uploadPromises = imageFiles.map(async (image) => {
     const b64 = Buffer.from(image.buffer).toString("base64"); //Encode the image as b64
@@ -89,4 +133,33 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
 
   const imageUrls = await Promise.all(uploadPromises);
   return imageUrls;
+}
+
+
+
+export const searchTour = async(req,res) =>{
+  try {
+    const pageSize = 6;
+    const pageNumber = parseInt(req.query.page ? req.query.page.toString() 
+    : "1")
+    const skip = (pageNumber - 1) * pageSize
+
+    const tours = await Tour.find().skip(skip).limit(pageSize)
+    const total = await Tour.countDocuments()
+
+    const response: TourSearchResponse = {
+      data: tours,
+      pagination:{
+        total,
+        page:pageNumber,
+        pages: Math.ceil(total/pageSize)
+      }
+    }
+    return res.json(response)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      msg :"No data found"
+    })
+  }
 }

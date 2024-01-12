@@ -8,6 +8,8 @@ import { useAppContext } from "./contexts/AppContext";
 import AddTours from "./pages/AddTours";
 import MyTour from "./pages/MyTour";
 import EditTour from "./pages/EditTour";
+import DeleteTour from "./pages/DeleteTour";
+import Search from "./pages/Search";
 
 const App = () => {
   const {isLoggedIn} = useAppContext()
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/addtour" element={<AddTours />} />
             <Route path="/get-tour" element={<MyTour />} />
             <Route path="/edit-tour/:tourId" element={<EditTour />} />
+            <Route path="/delete-tour/:tourId" element={<DeleteTour />} />
+            <Route path="/searchtour" element={<Search/>} />
           </>
         )}
       </Routes>

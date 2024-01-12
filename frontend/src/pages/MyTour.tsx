@@ -54,6 +54,7 @@ const MyTour = () => {
                 <Link to={`/edit-tour/${tour._id}`} className="bg-blue-600 p-2 rounded">
                   View Details
                 </Link>
+                <Link to={`/delete-tour/${tour._id}`} className="bg-gray-900 text-white  p-2 rounded">Delete Tour</Link>
               </div>
             </div>
           </div>

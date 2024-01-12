@@ -18,6 +18,7 @@ import { useAppContext } from "../contexts/AppContext";
 import { FaLocationDot } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SearchMenu from "../components/SearchBar";
 
 const Home = () => {
   const { isLoggedIn } = useAppContext();
@@ -29,6 +30,7 @@ const Home = () => {
   }
   return (
     <div className="space-y-5 p-4">
+      <SearchMenu/>
       <h1 className="text-3xl font-bold justify-center text-center text-gray-900">Tour Available</h1>
 
       <div className="m-4 flex flex-wrap justify-center">
