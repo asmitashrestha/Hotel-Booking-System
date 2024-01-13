@@ -223,9 +223,6 @@ export const searchTour =async (searchParams: SearchParams): Promise<TourSearchR
       console.error("Error response from server:", response);
       throw new Error("No search data found");
     }
-    
-
-
  return response.json()
  } catch (error) {
    console.error("Error searching tour:", error);
