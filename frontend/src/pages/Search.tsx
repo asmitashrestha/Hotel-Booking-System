@@ -16,7 +16,7 @@ const Search = () => {
   };
 
   const { data: tourData } = useQuery(["searchTour", searchParams], () => {
-   return  apiClient.searchTour(searchParams);
+     return apiClient.searchTour(searchParams);
   });
 
   return (
@@ -41,9 +41,11 @@ const Search = () => {
           <SearchResultCard key={index} tour={tour} />
         ))}
         <div>
-          <Pagination page={tourData?.pagination.page || 1} 
+          {/* <Pagination page={tourData?.pagination.page || 1} 
           pages={tourData?.pagination.pages || 1} 
-          onPageChange={(page) => setPage(page) }/>
+          onPageChange={(page) => setPage(page) }/> */}
+          <Pagination page={tourData?.pagination.page || 1} pages={tourData?.pagination.pages || 1} onPageChange={(page) => setPage(page)} />
+
         </div>
       </div>
     </div>

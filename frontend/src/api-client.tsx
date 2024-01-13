@@ -204,6 +204,11 @@ export const deleteMyTourById = async (tourFormData : FormData) =>{
 export type SearchParams = {
   destination?: string;
   page?:string;
+  facilities?:string[];
+  type?:string[];
+  stars?:string[];
+  maxPrice?:string;
+  sortOption?:string;
 }
 
 
@@ -212,8 +217,17 @@ export const searchTour =async (searchParams: SearchParams): Promise<TourSearchR
   const queryParams = new URLSearchParams()
   queryParams.append("destination", searchParams.destination || "")
   queryParams.append("page", searchParams.page || "")
+  queryParams.append("maxPrice",searchParams.maxPrice || "")
+  queryParams.append("sortOption",searchParams.sortOption || "")
 
-  try {
+ searchParams.facilities?.forEach((facility) =>
+ queryParams.append("facilities",facility))
+
+ searchParams.type?.forEach((type)=> queryParams.append('types',type))
+
+ searchParams.stars.forEach((star)=> queryParams.append('stars',star))
+
+ try {
     const response = await fetch(`http://localhost:5000/api/search-tour/searchs`, {
       method: 'GET',
       credentials: 'include',

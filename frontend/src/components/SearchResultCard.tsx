@@ -16,15 +16,15 @@ const SearchResultCard = ({ tour }: Props) => {
           src={tour.imageUrls[0]}
           className="w-full h-full
         object-cover object-center"
-          alt="image"
+          alt="image"           
         />
       </div>
       <div className="grid grid-rows-[1fr_2fr_1fr] ">
         <div>
           <div className="flex items-center">
             <span className="flex">
-              {Array.from({ length: tour.starRating }).map(() => (
-                <AiFillStar className="fill-yellow-400" />
+              {Array.from({ length: tour.starRating }).map((_, index) => (
+                <AiFillStar key={index} className="fill-yellow-400" />
               ))}
             </span>
             <span className="ml-1 text-sm">{tour.type}</span>
@@ -35,8 +35,8 @@ const SearchResultCard = ({ tour }: Props) => {
           <div className="line-clamp-4">{tour.description}</div>
           <div className="grid grid-cols-2 items-end whitespace-nowrap">
             <div className="flex gap-1 items-center">
-              {tour.facilities.slice(0, 3).map((facility) => (
-                <span
+              {tour.facilities.slice(0, 3).map((facility,index) => (
+                <span key={index}
                   className="bg-slate-300 p-2 rounded-lg font-bold
         text-xs whitespace-nowrap"
                 >

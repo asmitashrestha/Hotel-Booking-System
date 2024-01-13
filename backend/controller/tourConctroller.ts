@@ -80,7 +80,6 @@ export const editTour = async (req, res) => {
   }
 };
 
-
 export const deleteTour = async (req, res) => {
   try {
     const tour = await Tour.findOneAndDelete({
@@ -121,8 +120,6 @@ async function deleteImages(imageUrls) {
   await Promise.all(deletePromises);
 }
 
-
-
 async function uploadImages(imageFiles: Express.Multer.File[]) {
   const uploadPromises = imageFiles.map(async (image) => {
     const b64 = Buffer.from(image.buffer).toString("base64"); //Encode the image as b64
@@ -135,31 +132,85 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
   return imageUrls;
 }
 
-
-
-export const searchTour = async(req,res) =>{
+export const searchTour = async (req, res) => {
   try {
-    const pageSize = 6;
-    const pageNumber = parseInt(req.query.page ? req.query.page.toString() 
-    : "1")
-    const skip = (pageNumber - 1) * pageSize
+    const query = constructSearchQuery(req.query);
 
-    const tours = await Tour.find().skip(skip).limit(pageSize)
-    const total = await Tour.countDocuments()
+    let sortOptions = {}
+    switch(req.query.sortOption){
+      case 'starRating':
+        sortOptions = { starRating: -1}
+        break
+      case 'pricePerPackageAsc':
+          sortOptions = { pricePerPackage: 1}
+          break
+      case "pricePerPackageDesc":
+        sortOptions={pricePerPackage: -1}
+        break
+
+
+    }
+    const pageSize = 5;
+    const pageNumber = parseInt(
+      req.query.page ? req.query.page.toString() : "1"
+    );
+    const skip = (pageNumber - 1) * pageSize;
+
+    const tours = await Tour.find(query).sort(sortOptions).
+    skip(skip).limit(pageSize);
+    const total = await Tour.countDocuments();
 
     const response: TourSearchResponse = {
       data: tours,
-      pagination:{
+      pagination: {
         total,
-        page:pageNumber,
-        pages: Math.ceil(total/pageSize)
-      }
-    }
-    return res.json(response)
+        page: pageNumber,
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+    return res.json(response);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({
-      msg :"No data found"
-    })
+      msg: "No data found",
+    });
   }
-}
+};
+
+const constructSearchQuery = (queryParams: any) => {
+  let constructedQuery: any = {};
+
+  if (queryParams.destination) {
+    constructedQuery.$or = [{ city: new RegExp(queryParams.destination, "i") }];
+  }
+  if (queryParams.facilities) {
+    constructedQuery.facilities = {
+      $all: Array.isArray(queryParams.facilities)
+        ? queryParams.facilities
+        : [queryParams.facilities],
+    };
+  }
+  if (queryParams.types) {
+    constructedQuery.type = {
+      $in: Array.isArray(queryParams.types)
+        ? queryParams.types
+        : [queryParams.types],
+    };
+  }
+  if (queryParams.stars) {
+    const starRating = Array.isArray(queryParams.stars)
+    ? queryParams.stars.map((star: string) => parseInt(star))
+    : parseInt(queryParams.stars)
+    // const starRating = parseInt(queryParams.stars.toString());
+    constructedQuery.starRating = {
+      $eq: starRating,
+    };
+  }
+
+  if(queryParams.maxPrice) {
+    constructedQuery.pricePerPackage = {
+      $lte: parseInt(queryParams.maxPrice).toString()
+    }
+  }
+  return constructedQuery;
+};
