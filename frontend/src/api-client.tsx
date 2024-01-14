@@ -217,7 +217,7 @@ export type SearchParams = {
   sortOption?: string;
 };
 
-export const searchTour = async (
+export const searchTour = async ( 
   searchParams: SearchParams
 ): Promise<TourSearchResponse> => {
   const queryParams = new URLSearchParams();
@@ -253,4 +253,18 @@ export const searchTour = async (
   } catch (error) {
     console.error("Error searching tour:", error);
   }
+};
+
+export const viewDetailsById = async (tourId: string):Promise<TourType> => {
+  const response = await fetch(
+    `http://localhost:5000/api/search-tour/${tourId}`, // Append query parameters to the URL
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Error fetching tours");
+  }
+  return response.json();
 };

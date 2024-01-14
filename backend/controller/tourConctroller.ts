@@ -1,6 +1,9 @@
 import cloudinary from "cloudinary";
 import Tour, { TourType } from "../model/TourModel";
 import { TourSearchResponse } from "../shared/types";
+import { validationResult } from "express-validator";
+import { json } from "stream/consumers";
+import { log } from "console";
 
 export const myTourList = async (req, res) => {
   try {
@@ -214,3 +217,27 @@ const constructSearchQuery = (queryParams: any) => {
   }
   return constructedQuery;
 };
+
+
+export const viewDetailsById = async (req,res)=>{
+  const errors = validationResult(req)
+  if(!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    })
+  }
+
+  const id = req.params.id.toString()
+
+  try {
+    const tour = await Tour.findById(id)
+    res.json(tour)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg:"Error occured while fetching the details.."
+    })
+    
+  }
+
+}

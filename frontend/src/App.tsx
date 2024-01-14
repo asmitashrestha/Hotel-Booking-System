@@ -10,6 +10,7 @@ import MyTour from "./pages/MyTour";
 import EditTour from "./pages/EditTour";
 import DeleteTour from "./pages/DeleteTour";
 import Search from "./pages/Search";
+import Details from "./pages/Details";
 
 const App = () => {
   const {isLoggedIn} = useAppContext()
@@ -30,7 +31,8 @@ const App = () => {
             <Route path="/edit-tour/:tourId" element={<EditTour />} />
             <Route path="/delete-tour/:tourId" element={<DeleteTour />} />
             <Route path="/searchtour" element={<Search/>} />
-            <Route path="/details/$"/>
+            {/* <Route path="/details/$"/> */}
+            <Route path="/details/:tourId"  element={<Details/>}/>
           </>
         )}
       </Routes>

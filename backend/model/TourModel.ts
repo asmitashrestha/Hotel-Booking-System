@@ -12,6 +12,7 @@ export type TourType = {
   starRating: number;
   imageUrls: string[];
   lastUpdated: Date;
+  bookdate:Date;
 
 };
 
@@ -57,13 +58,17 @@ const TourSchema = new mongoose.Schema<TourType>(
     imageUrls: [
       {
         type: String,
-        // required:true
+        required:true
       },
     ],
     lastUpdated: {
       type: Date,
-      // required:true
+      required:true
     },
+    bookdate:{
+      type: Date,
+      required:true,
+    }
   },
   {
     timestamps: true,
