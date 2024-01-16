@@ -1,7 +1,8 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import { TourType } from "../../backend/model/TourModel";
-import { TourSearchResponse, UserType } from "../../backend/shared/types";
+import { PaymentIntentResponse, TourSearchResponse, UserType } from "../../backend/shared/types";
+import { BookingFormData } from "./components/BookingForm";
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch("http://localhost:5000/api/users/register", {
@@ -90,8 +91,6 @@ export const signOut = async () => {
     throw new Error("Sign-out failed");
   }
 };
-
-
 
 export const addMyTour = async (tourFormData: FormData) => {
   try {
@@ -207,7 +206,7 @@ export type SearchParams = {
   sortOption?: string;
 };
 
-export const searchTour = async ( 
+export const searchTour = async (
   searchParams: SearchParams
 ): Promise<TourSearchResponse> => {
   const queryParams = new URLSearchParams();
@@ -245,7 +244,7 @@ export const searchTour = async (
   }
 };
 
-export const viewDetailsById = async (tourId: string):Promise<TourType> => {
+export const viewDetailsById = async (tourId: string): Promise<TourType> => {
   const response = await fetch(
     `http://localhost:5000/api/search-tour/${tourId}`, // Append query parameters to the URL
     {
@@ -259,8 +258,7 @@ export const viewDetailsById = async (tourId: string):Promise<TourType> => {
   return response.json();
 };
 
-
-export const bookingDetailsUser = async(): Promise<UserType>=>{
+export const bookingDetailsUser = async (): Promise<UserType> => {
   const response = await fetch("http://localhost:5000/api/users/me", {
     method: "GET",
     credentials: "include",
@@ -269,9 +267,47 @@ export const bookingDetailsUser = async(): Promise<UserType>=>{
     },
   });
 
-  const responseBody = await response.json(); 
+  const responseBody = await response.json();
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
-  return responseBody 
+  return responseBody;
+};
+
+export const createPaymentIntent = async (tourId: string): Promise<PaymentIntentResponse> => {
+  const response = await fetch(
+    `http://localhost:5000/api/my-package/${tourId}/bookings/payment-intent`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.error("Error fetching payment intent:", errorData);
+    throw new Error("Error fetching payment intent");
+  }
+  return response.json();
+};
+
+
+export const createTourBooking = async (formData: BookingFormData) =>{
+  const response = await fetch(
+    `http://localhost:5000/api/my-package/${formData.tourId}/bookings`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        body:JSON.stringify(formData)
+      },
+    }
+  );
+  if(!response.ok){
+    throw new Error("Error booking room")
+  }
+
 }

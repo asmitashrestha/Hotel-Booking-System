@@ -8,6 +8,7 @@ import { v2 as cloudinary } from "cloudinary"
 const app = express();
 
 require('dotenv').config()
+
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   credentials: true,

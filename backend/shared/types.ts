@@ -16,3 +16,18 @@ export type TourSearchResponse = {
     pages:number;
   }
 }
+export type BookingType ={
+  _id:string;
+  userId:string;
+  name:string;
+  email:string;
+  countPeople:number;
+  bookDate:Date;
+  totalCost:number;
+}
+
+export type PaymentIntentResponse ={
+  paymentIntentId: string;
+  clientSecret: string;
+  totalCost:number;
+}

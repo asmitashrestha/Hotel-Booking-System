@@ -1,4 +1,5 @@
 import mongoose, { trusted } from "mongoose";
+import { BookingType } from "../shared/types";
 
 export type TourType = {
   _id: string;
@@ -12,9 +13,37 @@ export type TourType = {
   starRating: number;
   imageUrls: string[];
   lastUpdated: Date;
-  bookdate:Date;
-
+  bookdate: Date;
+  bookings: BookingType[];
 };
+
+const bookingSchema = new mongoose.Schema<BookingType>({
+  name:{
+    type:String,
+    required:true,
+  },
+  email:{
+    type:String,
+    required:true,
+  },
+  countPeople:{
+    type:Number,
+    required:true,
+  },
+  bookDate:{
+    type:Date,
+    required:true,
+  },
+  userId:{
+    type:String,
+    required:true,
+  },
+  totalCost:{
+    type:Number,
+    required:true,
+  }
+
+})
 
 const TourSchema = new mongoose.Schema<TourType>(
   {
@@ -48,7 +77,7 @@ const TourSchema = new mongoose.Schema<TourType>(
       type: Number,
       required: true,
     },
-    
+
     starRating: {
       type: Number,
       required: true,
@@ -58,17 +87,18 @@ const TourSchema = new mongoose.Schema<TourType>(
     imageUrls: [
       {
         type: String,
-        required:true
+        required: true,
       },
     ],
     lastUpdated: {
       type: Date,
-      required:true
+      required: true,
     },
-    bookdate:{
+    bookdate: {
       type: Date,
-      required:true,
-    }
+      required: true,
+    },
+    bookings:[bookingSchema]
   },
   {
     timestamps: true,

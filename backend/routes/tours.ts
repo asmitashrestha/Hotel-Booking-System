@@ -2,11 +2,13 @@ import express, { Request, Response } from "express";
 import multer from "multer";
 import verifyToken from "../middlewares/auth";
 import { body } from "express-validator";
-import { deleteTour, editTour, fetchParticularTour, getTourList, myTourList } from "../controller/tourConctroller";
+import { confirmBooking, deleteTour, editTour, fetchParticularTour, getTourList, myTourList, paymentTour } from "../controller/tourConctroller";
+import Stripe from 'stripe'
 
 
+
+const stripe = new Stripe(process.env.STRIPE_API_KEY as string)
 const router = express.Router();
-
 const storage = multer.memoryStorage();
 const upload = multer({
   storage: storage,
@@ -44,5 +46,9 @@ router.get('/addtour/:id', verifyToken , fetchParticularTour)
 
 router.put("/addtour/:tourId", verifyToken , upload.array("imageFiles"), editTour)
 router.delete("/addtour/:tourId", verifyToken , deleteTour)
+
+router.post('/:tourId/bookings/payment-intent',verifyToken, paymentTour)
+
+router.post('/:tourId/bookings', verifyToken, confirmBooking )
 
 module.exports = router
