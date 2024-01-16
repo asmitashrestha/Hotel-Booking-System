@@ -41,7 +41,8 @@ const Details = () => {
         <div className="whitespace-pre-line">{tourdetail.description}</div>
       </div>
       <div className="h-fit">
-         <GuestInfoForm/>
+         <GuestInfoForm pricePerPackage={tourdetail.pricePerPackage}
+          tourId={tourdetail._id}/>
       </div>
     </div>
   )

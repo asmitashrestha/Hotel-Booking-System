@@ -24,15 +24,16 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
+         <Route path="/searchtour" element={<Search/>} />
+            {/* <Route path="/details/$"/> */}
+            <Route path="/details/:tourId"  element={<Details/>}/>
         {isLoggedIn && (
           <>
             <Route path="/addtour" element={<AddTours />} />
             <Route path="/get-tour" element={<MyTour />} />
             <Route path="/edit-tour/:tourId" element={<EditTour />} />
             <Route path="/delete-tour/:tourId" element={<DeleteTour />} />
-            <Route path="/searchtour" element={<Search/>} />
-            {/* <Route path="/details/$"/> */}
-            <Route path="/details/:tourId"  element={<Details/>}/>
+           
           </>
         )}
       </Routes>

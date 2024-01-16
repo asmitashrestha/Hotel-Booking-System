@@ -3,7 +3,11 @@ import React, { useContext, useState } from "react";
 type SearchContext = {
   destination: string;
   tourId: string;
-  saveSearchValues: (destination: string) => void;
+  countPeople:number;
+  bookDate:Date;
+  saveSearchValues: (destination: string,
+    countPeople: number,
+    bookDate: Date) => void;
 };
 
 const SearchContext = React.createContext<SearchContext | undefined>(undefined);
@@ -16,10 +20,15 @@ export const SearchContextProvider = ({
   children,
 }: SearchContextProviderProps) => {
   const [destination, setDestination] = useState<string>("");
+  const [bookDate, setBookDate] = useState<Date>(new Date())
   const [tourId, setTourId] = useState<string>(" ")
+  const [countPeople, setCountPeople] = useState<number>(1)
 
-  const saveSearchValues = (destination: string, tourId?:string) => {
+  const saveSearchValues = (destination: string, countPeople?:number, bookDate?:
+    Date,tourId?:string) => {
     setDestination(destination);
+    setBookDate(bookDate)
+    setCountPeople(countPeople)
     if(tourId){
       setTourId(tourId)
     }
