@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../api-client";
@@ -12,6 +12,7 @@ export type SignInFormData = {
 
 const SignIn = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const queryClient = useQueryClient()
   const {
     register,
@@ -30,7 +31,7 @@ const SignIn = () => {
         autoClose: 500, // Adjust the duration the toast is displayed
         hideProgressBar: false,
       });
-      navigate('/')
+      navigate(location.state?.from?.pathname||'/')
     },
     onError: (error: Error) => {
       console.log(error.message);

@@ -10,6 +10,7 @@ export type UserType = {
   passwrod:string;
 }
 
+
 const UserSchema = new Schema({
   email: {
      type: String,

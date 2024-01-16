@@ -1,7 +1,7 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
 import { TourType } from "../../backend/model/TourModel";
-import { TourSearchResponse } from "../../backend/shared/types";
+import { TourSearchResponse, UserType } from "../../backend/shared/types";
 
 export const register = async (formData: RegisterFormData) => {
   const response = await fetch("http://localhost:5000/api/users/register", {
@@ -91,17 +91,7 @@ export const signOut = async () => {
   }
 };
 
-// export const addMyTour = async (tourFormData : FormData) =>{
-//   const response = await fetch(`http://localhost:5000/api/my-package/addtour`,{
-//     method:'POST',
-//     credentials:"include",
-//     body:tourFormData,
-//   })
-//   if(!response.ok){
-//     throw new Error("Failed to add tour")
-//   }
-//   return response.json()
-// }
+
 
 export const addMyTour = async (tourFormData: FormData) => {
   try {
@@ -268,3 +258,20 @@ export const viewDetailsById = async (tourId: string):Promise<TourType> => {
   }
   return response.json();
 };
+
+
+export const bookingDetailsUser = async(): Promise<UserType>=>{
+  const response = await fetch("http://localhost:5000/api/users/me", {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const responseBody = await response.json(); 
+  if (!response.ok) {
+    throw new Error(responseBody.message);
+  }
+  return responseBody 
+}

@@ -1,9 +1,11 @@
 import express from "express";
-import createNewUser from "../controller/userController";
 import { check } from "express-validator";
 import verifyUserLogin from "../controller/authController";
 import verifyToken from "../middlewares/auth";
+import { bookingUserDetails, createNewUser } from "../controller/userController";
 const router = express.Router();
+
+router.get('/me',verifyToken, bookingUserDetails)
 
 router.post(
   "/register",
