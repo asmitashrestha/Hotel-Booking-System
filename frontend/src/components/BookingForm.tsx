@@ -50,19 +50,40 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     },
   });
 
+  // const onSubmit = async (formData: BookingFormData) => {
+  //   if (!stripe || !elements) {
+  //     return;
+  //   }
+  //   const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+  //     payment_method: {
+  //       card: elements.getElement(CardElement) as StripeCardElement,
+  //     },
+  //   });
+  //   if (result.paymentIntent?.status === "succeeded") {
+  //     bookTour({ ...formData, paymentIntentId: result.paymentIntent.id });
+  //   }
+  // };
+
   const onSubmit = async (formData: BookingFormData) => {
-    if (!stripe || !elements) {
+    if (isLoading || !stripe || !elements || !paymentIntent) {
       return;
     }
+  
     const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement) as StripeCardElement,
       },
     });
+  
     if (result.paymentIntent?.status === "succeeded") {
       bookTour({ ...formData, paymentIntentId: result.paymentIntent.id });
     }
+
+    console.log("Payment Intent:", paymentIntent);
+    console.log("Client Secret:", paymentIntent?.clientSecret);
   };
+  
+
 
   return (
     <form

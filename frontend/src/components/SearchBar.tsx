@@ -9,7 +9,7 @@ const SearchMenu = () => {
   const search = useSearchContext();
   // local state to global state in saveSearchValues
   const [destination, setDestination] = useState<string>(search.destination);
-
+  
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     search.saveSearchValues(destination);
@@ -35,9 +35,6 @@ const SearchMenu = () => {
               className="outline-none font-bold bg-blue-400 ml-4 p-3 relative bottom-11 left-[135px] rounded"
             >
               <FaSearchLocation />
-            </button>
-            <button className="ml-1 bg-blue-600 rounded px-4 py-3">
-              clear
             </button>
           </div>
         </div>
