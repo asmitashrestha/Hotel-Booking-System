@@ -50,26 +50,11 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     },
   });
 
-  // const onSubmit = async (formData: BookingFormData) => {
-  //   if (!stripe || !elements) {
-  //     return;
-  //   }
-  //   const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
-  //     payment_method: {
-  //       card: elements.getElement(CardElement) as StripeCardElement,
-  //     },
-  //   });
-  //   if (result.paymentIntent?.status === "succeeded") {
-  //     bookTour({ ...formData, paymentIntentId: result.paymentIntent.id });
-  //   }
-  // };
-
   const onSubmit = async (formData: BookingFormData) => {
-    if (isLoading || !stripe || !elements || !paymentIntent) {
+    if (!stripe || !elements ) {
       return;
-    }
-  
-    const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+    } 
+    const result = await stripe.confirmCardPayment(paymentIntent.clientsecret, {
       payment_method: {
         card: elements.getElement(CardElement) as StripeCardElement,
       },
@@ -78,9 +63,6 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     if (result.paymentIntent?.status === "succeeded") {
       bookTour({ ...formData, paymentIntentId: result.paymentIntent.id });
     }
-
-    console.log("Payment Intent:", paymentIntent);
-    console.log("Client Secret:", paymentIntent?.clientSecret);
   };
   
 

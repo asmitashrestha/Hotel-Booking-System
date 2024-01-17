@@ -225,6 +225,7 @@ export const paymentTour = async (req, res) => {
       msg: "Error creating payment intent",
     });
   }
+console.log(paymentIntent);
 
   const response = {
     paymentIntentId: paymentIntent.id,

@@ -285,6 +285,7 @@ export const createPaymentIntent = async (tourId: string): Promise<PaymentIntent
       },
     }
   );
+  
   if (!response.ok) {
     const errorData = await response.json();
     console.error("Error fetching payment intent:", errorData);
@@ -294,20 +295,47 @@ export const createPaymentIntent = async (tourId: string): Promise<PaymentIntent
 };
 
 
-export const createTourBooking = async (formData: BookingFormData) =>{
-  const response = await fetch(
-    `http://localhost:5000/api/my-package/${formData.tourId}/bookings`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        body:JSON.stringify(formData)
-      },
-    }
-  );
-  if(!response.ok){
-    throw new Error("Error booking room")
-  }
+// export const createTourBooking = async (formData: BookingFormData) =>{
+//   const response = await fetch(
+//     `http://localhost:5000/api/my-package/${formData.tourId}/bookings`,
+//     {
+//       method: "POST",
+//       credentials: "include",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//        body:JSON.stringify(formData)
+//     }
+//   );
+//   if(!response.ok){
+//     throw new Error("Error booking room")
+//   }
 
-}
+// }
+
+
+export const createTourBooking = async (formData: BookingFormData) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/my-package/${formData.tourId}/bookings`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error booking room");
+    }
+
+    const responseData = await response.json();
+    return responseData; // You might want to return something here based on your API response
+  } catch (error) {
+    console.error("Error in createTourBooking:", error);
+    throw new Error("Error booking room");
+  }
+};

@@ -8,18 +8,18 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useAppContext } from "../contexts/AppContext";
 
 const Booking = () => {
-  const { stripePromise } = useAppContext()
+  const { stripePromise } = useAppContext();
   const search = useSearchContext();
   const { tourId } = useParams();
   // const [numberOfDay, setNumberOfDay] = useState<number>(0)
-  const { data: paymentIntentData } = useQuery("createPaymentIntent", ()=>
-  apiClient.createPaymentIntent(tourId as string),
-  
-  {
-    enabled: !!tourId 
-  }
-  )
+  const { data: paymentIntentData } = useQuery(
+    "createPaymentIntent",
+    () => apiClient.createPaymentIntent(tourId as string),
 
+    {
+      enabled: !!tourId,
+    }
+  );
 
   const { data: tour } = useQuery(
     "fetchTourById",
@@ -33,10 +33,10 @@ const Booking = () => {
     "bookingDetailsUser",
     apiClient.bookingDetailsUser
   );
-  console.log(currentUser?.email);
+  // console.log(currentUser?.email);
 
-  if(!tour){
-    return <></>
+  if (!tour) {
+    return <></>;
   }
 
   return (
@@ -51,12 +51,17 @@ const Booking = () => {
         )}
       </div>
       {currentUser && paymentIntentData && (
-        <Elements stripe={stripePromise}  options={{
-          clientSecret: paymentIntentData.clientSecret,
-        }}>
-          <BookingForm currentUser={currentUser} 
-          paymentIntent ={paymentIntentData}/>
+        //
+        <Elements stripe={stripePromise}>
+          <BookingForm
+            currentUser={currentUser}
+            paymentIntent={paymentIntentData}
+          />
         </Elements>
+
+        //   <BookingForm currentUser={currentUser}
+        //   paymentIntent ={paymentIntentData}/>
+        // </Elements>
       )}
     </div>
   );
