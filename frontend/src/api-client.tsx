@@ -329,13 +329,13 @@ export const createTourBooking = async (formData: BookingFormData) => {
     );
 
     if (!response.ok) {
-      throw new Error("Error booking room");
+      throw new Error("Error booking tour");
     }
 
     const responseData = await response.json();
     return responseData; // You might want to return something here based on your API response
   } catch (error) {
     console.error("Error in createTourBooking:", error);
-    throw new Error("Error booking room");
+    throw new Error("Error booking tour");
   }
 };

@@ -9,6 +9,8 @@ import * as apiClient from "../api-client";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// import { useAppContext } from "../contexts/AppContext";
+
 type Props = {
   currentUser: UserType;
   paymentIntent: PaymentIntentResponse;
@@ -33,9 +35,10 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     onSuccess: () => {
       toast.success("Tour Booked");
     },
-    onError: () => {
-      toast.error("Error occured");
-    },
+    onError: (error) => {
+      toast.error("An error occurred");
+    console.log("Toast error message",error);
+        },
   });
 
   const { handleSubmit, register } = useForm<BookingFormData>({
@@ -64,7 +67,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       bookTour({ ...formData, paymentIntentId: result.paymentIntent.id });
     }
   };
-  
+
 
 
   return (

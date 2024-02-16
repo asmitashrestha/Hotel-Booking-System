@@ -32,7 +32,7 @@ const bookingSchema = new mongoose.Schema<BookingType>({
   },
   bookDate:{
     type:Date,
-    required:true,
+    required:false,
   },
   userId:{
     type:String,
@@ -96,7 +96,7 @@ const TourSchema = new mongoose.Schema<TourType>(
     },
     bookdate: {
       type: Date,
-      required: true,
+      required: false,
     },
     bookings:[bookingSchema]
   },

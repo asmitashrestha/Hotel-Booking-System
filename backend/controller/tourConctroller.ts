@@ -235,17 +235,77 @@ console.log(paymentIntent);
   res.send(response);
 };
 
+// export const confirmBooking = async (req, res) => {
+//   try {
+//     const paymentIntentId = req.body.paymentIntentId;
+//     const paymentIntent = await stripe.paymentIntents.retrieve(
+//       paymentIntentId as string
+//     );
+//     if (!paymentIntent) {
+//       return res.status(400).json({
+//         msg: "Payment intent not found",
+//       });
+//     }
+//     if (
+//       paymentIntent.metadata.tourId !== req.params.tourId ||
+//       paymentIntent.metadata.userId !== req.userId
+//     ) {
+//       return res.status(400).json({
+//         msg: "Payment intent mismatch",
+//       });
+//     }
+//     if (paymentIntent.status !== "succeeded") {
+//       return res.status(400).json({
+//         msg: `Payment intent not succeeded. Status: ${paymentIntent.status}`,
+//       });
+//     }
+
+//     const newBooking: BookingType = {
+//       ...req.body,
+//       userId: req.userId,
+//     };
+//     const tour = await Tour.findOneAndUpdate(
+//       {
+//         _id: req.params.tourId,
+//       },
+//       {
+//         $push: { bookings: newBooking },
+//       }
+//     );
+
+//     if(!tour){
+//       return res.status(400).json({
+//         msg:"Tour not found"
+//       })
+//     }
+
+//     await tour.save()
+//     res.status(200).send()
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       msg: "Error occured while booking",
+//     });
+//   }
+// };
+
+
+// import Tour from 'path/to/Tour'; // Import the Tour model
+
 export const confirmBooking = async (req, res) => {
   try {
     const paymentIntentId = req.body.paymentIntentId;
     const paymentIntent = await stripe.paymentIntents.retrieve(
       paymentIntentId as string
     );
+
     if (!paymentIntent) {
       return res.status(400).json({
         msg: "Payment intent not found",
       });
     }
+
+    // Ensure that the payment intent is associated with the correct tour and user
     if (
       paymentIntent.metadata.tourId !== req.params.tourId ||
       paymentIntent.metadata.userId !== req.userId
@@ -254,6 +314,8 @@ export const confirmBooking = async (req, res) => {
         msg: "Payment intent mismatch",
       });
     }
+
+    // Ensure that the payment intent status is succeeded
     if (paymentIntent.status !== "succeeded") {
       return res.status(400).json({
         msg: `Payment intent not succeeded. Status: ${paymentIntent.status}`,
@@ -264,27 +326,34 @@ export const confirmBooking = async (req, res) => {
       ...req.body,
       userId: req.userId,
     };
+
+    // Find the tour by ID and update its bookings array
     const tour = await Tour.findOneAndUpdate(
       {
         _id: req.params.tourId,
       },
       {
         $push: { bookings: newBooking },
-      }
+      },
+      { new: true } // Return the modified tour document
     );
 
-    if(!tour){
-      return res.status(400).json({
-        msg:"Tour not found"
-      })
+    // If the tour doesn't exist, return an error
+    if (!tour) {
+      return res.status(404).json({
+        msg: "Tour not found",
+      });
     }
 
-    await tour.save()
-    res.status(200).send()
+    await tour.save(); // Save the updated tour document
+
+    res.status(200).json({
+      msg: "Booking confirmed successfully",
+    });
   } catch (error) {
-    console.log(error);
+    console.error("Error occurred while confirming booking:", error);
     res.status(500).json({
-      msg: "Error occured while booking",
+      msg: "Error occurred while confirming booking",
     });
   }
 };
