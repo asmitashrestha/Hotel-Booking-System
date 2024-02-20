@@ -73,7 +73,7 @@ const Home = () => {
                     {tour.pricePerPackage}
                   </span>
                 </p>
-                {isLoggedIn ? (
+                {/* {isLoggedIn ? (
                   <Link
                     to={"/details-page"}
                     className="bg-blue-600 p-2 rounded"
@@ -87,7 +87,7 @@ const Home = () => {
                   </Link>
                   </button>
                  
-                )}
+                )} */}
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@ const Header = () => {
         <div>
           <Link
             to="/"
-            className=" ml-72 font-bold text-3xl hover:text-blue-400"
+            className=" ml-7 font-bold text-3xl hover:text-blue-400"
           >
             TravelHarbor.com
           </Link>
@@ -20,7 +20,7 @@ const Header = () => {
         <span>
           {isLoggedIn ? (
             <>
-              <Link to="/my-booking">My Bookings</Link>
+              <Link to="/my-bookings">My Bookings</Link>
               <Link to="/get-tour">Get Tour</Link>
               <SignOutButton/>
             </>

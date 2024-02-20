@@ -6,6 +6,7 @@ const searchTourRoutes = require('./routes/toursearch')
 const cookierParser = require("cookie-parser")
 import { v2 as cloudinary } from "cloudinary"
 import morgan from 'morgan'
+const bookingRoutes = require('./routes/bookings')
 const app = express();
 
 require('dotenv').config()
@@ -44,12 +45,10 @@ app.get('/api', (req, res) => {
   });
 });
 
-
-
-
 app.use('/api/users',userRoutes)
 app.use('/api/my-package',tourRoutes)
 app.use('/api/search-tour', searchTourRoutes)
+app.use('/api/booking',bookingRoutes)
 
 
 app.listen(PORT, () => {

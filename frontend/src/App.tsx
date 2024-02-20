@@ -12,6 +12,7 @@ import Search from "./pages/Search";
 import Details from "./pages/Details";
 import Booking from "./pages/Booking";
 import Register from "./pages/Register";
+import MyBooking from "./pages/MyBooking";
 
 const App = () => {
   const {isLoggedIn} = useAppContext()
@@ -30,12 +31,13 @@ const App = () => {
             <Route path="/details/:tourId"  element={<Details/>}/>
         {isLoggedIn && (
           <>
+
           <Route path="/search-tour/:tourId/booking" element={<Booking/>}/>
             <Route path="/addtour" element={<AddTours />} />
             <Route path="/get-tour" element={<MyTour />} />
             <Route path="/edit-tour/:tourId" element={<EditTour />} />
             <Route path="/delete-tour/:tourId" element={<DeleteTour />} />
-           
+           <Route path="/my-bookings" element={<MyBooking/>}/>
           </>
         )}
       </Routes>

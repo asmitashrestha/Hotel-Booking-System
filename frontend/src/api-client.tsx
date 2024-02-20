@@ -52,21 +52,6 @@ export const validateToken = async () => {
   return response.json();
 };
 
-// export const signOut = async()=>{
-//   const response = await fetch(
-//     "http://localhost:5000/api/users/signout",
-//     {
-//       method: "POST",
-//       credentials: "include",
-//     }
-//   );
-
-//   if (!response.ok) {
-//     throw new Error("Error during sign out!");
-//   }
-//   return response.json();
-// }
-
 export const signOut = async () => {
   try {
     const response = await fetch("http://localhost:5000/api/users/signout", {
@@ -295,25 +280,6 @@ export const createPaymentIntent = async (tourId: string): Promise<PaymentIntent
 };
 
 
-// export const createTourBooking = async (formData: BookingFormData) =>{
-//   const response = await fetch(
-//     `http://localhost:5000/api/my-package/${formData.tourId}/bookings`,
-//     {
-//       method: "POST",
-//       credentials: "include",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//        body:JSON.stringify(formData)
-//     }
-//   );
-//   if(!response.ok){
-//     throw new Error("Error booking room")
-//   }
-
-// }
-
-
 export const createTourBooking = async (formData: BookingFormData) => {
   try {
     const response = await fetch(
@@ -339,3 +305,26 @@ export const createTourBooking = async (formData: BookingFormData) => {
     throw new Error("Error booking tour");
   }
 };
+
+
+export const fetchMyBookings = async(): Promise<TourType[]>=>{
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/booking/user-booking`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error fetching tour");
+    }
+
+    const responseData = await response.json();
+    return responseData; // You might want to return something here based on your API response
+  } catch (error) {
+    console.error("Error while fetching tour:", error);
+    throw new Error("Error fetching tour");
+  }
+}

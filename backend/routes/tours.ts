@@ -39,7 +39,7 @@ router.post(
   myTourList
 )
 
-router.get('/addtour', verifyToken,getTourList)
+router.get('/addtour',verifyToken,getTourList)
 
 router.get('/addtour/:id', verifyToken , fetchParticularTour)
 
