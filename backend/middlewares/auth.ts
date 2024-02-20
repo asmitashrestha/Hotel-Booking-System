@@ -1,4 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import User from '../model/UserModel';
 
 declare global {
   namespace Express {
@@ -27,6 +28,8 @@ const verifyToken = (req,res,next) =>{
     });
   }
 }
+
+
 
 export default verifyToken
 

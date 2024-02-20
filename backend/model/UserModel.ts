@@ -8,41 +8,82 @@ export type UserType = {
   name:string;
   email:string;
   passwrod:string;
+  isVerified:boolean;
 }
 
 
-const UserSchema = new Schema({
-  email: {
-     type: String,
-      required: true,
-      unique: true
+// const UserSchema = new Schema({
+//   email: {
+//      type: String,
+//       required: true,
+//       unique: true
+//     },
+//     password: {
+//       type: String,
+//       required: true,
+//     },
+//     name: {
+//       type: String,
+//       required: true,
+//     },
+//     role: {
+//       type: String,
+//       enum: ['user', 'admin'],
+//       default: 'user',
+//     },
+     
+// },{ timestamps: true });
+
+// UserSchema.pre("save", async function (next){
+//   if(this.isModified('password')){
+//     this.password = await bcrypt.hash(this.password, 8)
+//   }
+//   next()
+// })
+
+
+
+// const User = mongoose.model('User', UserSchema);
+
+// export default User;
+// // module.exports = mongoose.model("User",UserSchema)
+
+
+const userSchema = mongoose.Schema({
+    name: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    email: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true
     },
     password: {
-      type: String,
-      required: true,
+        type: String,
+        required: true
     },
-    name: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
-     
-},{ timestamps: true });
-
-UserSchema.pre("save", async function (next){
-  if(this.isModified('password')){
-    this.password = await bcrypt.hash(this.password, 8)
-  }
-  next()
+    isVerified: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 })
 
+userSchema.pre("save", async function(next) {
+    if (this.isModified("password")) {
+        this.password = await bcrypt.hash(this.password, 10)
+    }
+    next()
+})
+
+userSchema.methods.comparePassword = async function(password) {
+    const result = await bcrypt.compare(password, this.password)
+    return result
+}
 
 
-const User = mongoose.model('User', UserSchema);
-
+const User = mongoose.model('User', userSchema);
 export default User;
-// module.exports = mongoose.model("User",UserSchema)

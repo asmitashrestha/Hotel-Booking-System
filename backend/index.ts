@@ -5,6 +5,7 @@ const tourRoutes = require('./routes/tours')
 const searchTourRoutes = require('./routes/toursearch')
 const cookierParser = require("cookie-parser")
 import { v2 as cloudinary } from "cloudinary"
+import morgan from 'morgan'
 const app = express();
 
 require('dotenv').config()
@@ -23,6 +24,8 @@ cloudinary.config({
 const PORT = process.env.PORT || 5000
 
 require('./config/db')
+
+app.use(morgan("dev"))
 app.use(cookierParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended : true}))
@@ -41,9 +44,13 @@ app.get('/api', (req, res) => {
   });
 });
 
+
+
+
 app.use('/api/users',userRoutes)
 app.use('/api/my-package',tourRoutes)
 app.use('/api/search-tour', searchTourRoutes)
+
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

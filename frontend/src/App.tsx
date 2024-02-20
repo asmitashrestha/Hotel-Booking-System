@@ -3,7 +3,6 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Footer from "./components/Footer";
-import Register from "./pages/Register";
 import { useAppContext } from "./contexts/AppContext";
 import AddTours from "./pages/AddTours";
 import MyTour from "./pages/MyTour";
@@ -12,6 +11,7 @@ import DeleteTour from "./pages/DeleteTour";
 import Search from "./pages/Search";
 import Details from "./pages/Details";
 import Booking from "./pages/Booking";
+import Register from "./pages/Register";
 
 const App = () => {
   const {isLoggedIn} = useAppContext()
@@ -23,8 +23,8 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/register" element={<Register />} />
          <Route path="/searchtour" element={<Search/>} />
             {/* <Route path="/details/$"/> */}
             <Route path="/details/:tourId"  element={<Details/>}/>
