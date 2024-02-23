@@ -1,4 +1,4 @@
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 import SignOutButton from "./SignOutButton";
 
@@ -7,36 +7,42 @@ const Header = () => {
 
   return (
     <div className="bg-blue-800 h-30 p-7">
-      <div className="top-bar flex p-3 ">
+      <div className="top-bar flex p-3">
         <div>
           <Link
             to="/"
-            className=" ml-7 font-bold text-3xl hover:text-blue-400"
+            className="ml-7 font-bold text-3xl hover:text-blue-400"
           >
             TravelHarbor.com
           </Link>
         </div>
 
-        <span>
+        <div>
           {isLoggedIn ? (
             <>
-              <Link to="/my-bookings">My Bookings</Link>
-              <Link to="/get-tour">Get Tour</Link>
-              <SignOutButton/>
+              <Link to="/my-bookings" className="mr-4">
+                My Bookings
+              </Link>
+              <Link to="/get-tour" className="mr-4">
+                Get Tour
+              </Link>
+              <Link to="/chats" className="mr-4">
+                ChatChit
+              </Link>
+              <SignOutButton />
             </>
           ) : (
             <Link
               to="/signin"
-              className="ml-96 font-semibold text-xl bg-zinc-400 rounded px-4 py-2 
-        hover:bg-blue-400 hover:text-white"
+              className="ml-auto font-semibold text-xl bg-zinc-400 rounded px-4 py-2 hover:bg-blue-400 hover:text-white"
             >
               Sign In
             </Link>
           )}
-        </span>
+        </div>
       </div>
       <div className="title text-white">
-        <h1 className=" text-3xl font-bold ml-72">Find your next stay</h1>
+        <h1 className="text-3xl font-bold ml-72">Find your next stay</h1>
         <p className="ml-72 font-semibold">
           Search low prices on hotels for your dream vacation...
         </p>

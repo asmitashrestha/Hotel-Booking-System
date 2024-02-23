@@ -2,7 +2,7 @@ import express from "express";
 import { check } from "express-validator";
 import verifyUserLogin from "../controller/authController";
 import verifyToken from "../middlewares/auth";
-import { bookingUserDetails, createNewUser } from "../controller/userController";
+import { bookingUserDetails, createNewUser, findUsers } from "../controller/userController";
 const router = express.Router();
 
 router.get('/me',verifyToken, bookingUserDetails)
@@ -16,6 +16,8 @@ router.post(
   ],
   createNewUser
 );
+
+router.get('/register',verifyToken,findUsers)
 
 router.post(
   "/signin",

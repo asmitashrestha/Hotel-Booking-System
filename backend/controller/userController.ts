@@ -1,6 +1,8 @@
 import { validationResult } from "express-validator";
 import User from "../model/UserModel";
 import jwt from "jsonwebtoken";
+const asyncHandler = require("express-async-handler");
+
 
 // logic responsible for signup or registration
 export const createNewUser = async (req, res) => {
@@ -41,6 +43,19 @@ export const createNewUser = async (req, res) => {
     res.status(500).send(error.message.data);
   }
 };
+
+// chat wala ko lagi 
+export const findUsers = asyncHandler(async(req,res)=>{
+  const keyword = req.query.search ?{
+      $or:[
+          {name: { $regex: req.query.search, $options: "i"}},
+          {email: { $regex: req.query.search, $options: "i"}},
+      ]
+  }: {};
+  const users = await User.find(keyword).find({_id:{$ne:req.user._id}})
+  res.send(users)
+  
+})
 
 export const bookingUserDetails = async (req, res) => {
   const userId = req.userId;

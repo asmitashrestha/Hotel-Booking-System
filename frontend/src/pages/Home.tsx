@@ -12,7 +12,6 @@
 // export default Home
 
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 import { FaLocationDot } from "react-icons/fa6";

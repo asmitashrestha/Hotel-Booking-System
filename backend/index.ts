@@ -4,6 +4,8 @@ const userRoutes = require('./routes/users')
 const tourRoutes = require('./routes/tours')
 const searchTourRoutes = require('./routes/toursearch')
 const cookierParser = require("cookie-parser")
+const chatRoutes = require('./routes/chat')
+const messageRoutes = require('./routes/message')
 import { v2 as cloudinary } from "cloudinary"
 import morgan from 'morgan'
 const bookingRoutes = require('./routes/bookings')
@@ -50,9 +52,48 @@ app.use('/api/my-package',tourRoutes)
 app.use('/api/search-tour', searchTourRoutes)
 app.use('/api/booking',bookingRoutes)
 
+// for chating features
+app.use('/chat',chatRoutes)
+app.use('/message',messageRoutes)
 
-app.listen(PORT, () => {
+const server =app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
 
+
+// socket connect garne features backend ma
+
+
+const io = require("socket.io")(server, {
+  pingTimeout: 50000,
+  cors: {
+    origin: "http://localhost:5173",
+  }
+})
+
+io.on("connection",(socket)=>{
+  console.log("Connected sucessfully to socket.io");
+
+  socket.on("setup", (userData)=>{
+    socket.join(userData._id)
+    console.log(userData._id)
+    socket.emit("connected!")
+  })
+
+  socket.on("join chat", (room)=>{
+    socket.join(room)
+    console.log("User joined room" + room);
+  })
+
+  socket.on("new message",(newMessageReceived)=>{
+    let chat = newMessageReceived.chat
+    if(!chat.users) return console.log("chat.users is not defined");
+
+    chat.users.forEach((user) =>{
+      if(user._id === newMessageReceived.sender._id) return
+
+      socket.in(user._id).emit("message received", newMessageReceived)
+    })
+  })
+})
 

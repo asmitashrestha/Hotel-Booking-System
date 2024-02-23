@@ -6,6 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AppContextProvider } from "./contexts/AppContext.tsx";
 import { SearchContextProvider } from "./contexts/SearchContext.tsx";
+import { ChakraProvider } from '@chakra-ui/react';
+import ChatProvider from "./contexts/ChatProvider.tsx";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +24,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <AppContextProvider>
           <SearchContextProvider>
-            <App />
+          <ChakraProvider>
+            <ChatProvider>
+               <App />
+            </ChatProvider>
+              
+          </ChakraProvider>
+      
+           
           </SearchContextProvider>
         </AppContextProvider>
       </QueryClientProvider>
