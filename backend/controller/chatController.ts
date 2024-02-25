@@ -1,3 +1,5 @@
+import { log } from "console";
+
 const asyncHandler = require("express-async-handler");
 const Chat = require("../model/ChatModel");
 const User = require("../model/UserModel");
@@ -7,7 +9,8 @@ const User = require("../model/UserModel");
 //@access          Protected
 export const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
-
+  console.log(userId);
+  
   if (!userId) {
     console.log("UserId param not sent with request");
     return res.sendStatus(400);
@@ -25,6 +28,7 @@ export const accessChat = asyncHandler(async (req, res) => {
 
   isChat = await User.populate(isChat, {
     path: "latestMessage.sender",
+    // select: "name img email",
     select: "name img email",
   });
 
@@ -46,6 +50,8 @@ export const accessChat = asyncHandler(async (req, res) => {
       res.status(200).json(FullChat);
     } catch (error) {
       res.status(400);
+      console.log(error);
+      
       throw new Error(error.message);
     }
   }
@@ -64,11 +70,14 @@ export const fetchChats = asyncHandler(async (req, res) => {
       .then(async (results) => {
         results = await User.populate(results, {
           path: "newMessage.sender",
+          // select: "name img email",
           select: "name img email",
         });
         res.status(200).send(results);
       });
   } catch (error) {
+    console.log(error);
+    
     res.status(400);
     throw new Error(error.message);
   }

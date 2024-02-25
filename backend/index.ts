@@ -75,8 +75,10 @@ io.on("connection",(socket)=>{
   console.log("Connected sucessfully to socket.io");
 
   socket.on("setup", (userData)=>{
-    socket.join(userData._id)
-    console.log(userData._id)
+    console.log("Hello from socket on");
+    
+    socket.join("User data",userData._id)
+    console.log("Userdata",userData._id)
     socket.emit("connected!")
   })
 

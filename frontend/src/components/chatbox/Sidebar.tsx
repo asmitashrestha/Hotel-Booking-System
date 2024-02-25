@@ -49,33 +49,52 @@ const Sidebar = () => {
 
     try {
       setLoading(true);
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      if (!user || !user.token) {
+        console.error("User info or token is missing.");
+        return;
+      }
 
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      console.log("sidebar",config);
+      
 
       const { data } = await axios.get(`http://localhost:5000/api/users/register?search=${search}`, config);
 
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
+      console.log(error);
+      
       toast.error("Failed to Load the Results");
     }
   };
+
+
+  
 
   const accessChat = async (userId) => {
     console.log(userId);
 
     try {
       setLoadingChat(true);
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      if (!user || !user.token) {
+        console.error("User info or token is missing.");
+        return;
+      }
       const config = {
         headers: {
           "Content-type": "application/json",
-          // Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       };
+      console.log("sidebar",config);
+      
       const { data } = await axios.post(`http://localhost:5000/chat`, { userId }, config);
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
@@ -83,9 +102,14 @@ const Sidebar = () => {
       setLoadingChat(false);
       onClose();
     } catch (error) {
+      console.log(error);
+      
       toast.error('Error fetching the chat');
     }
   };
+
+ 
+  
 
   return (
     <div className='boxcontainer'>

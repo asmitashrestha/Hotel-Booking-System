@@ -43,13 +43,10 @@ const Groupchat: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     try {
       setLoading(true);
       const config = {
-        // headers: {
-        //   Authorization: `Bearer ${user.token}`,
-        // },
-        credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+     
       };
       const { data } = await axios.get(`http://localhost:5000/api/users/register?search=${search}`, config);
       setLoading(false);
@@ -71,13 +68,9 @@ const Groupchat: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   
     try {
       const config = {
-        // headers: {
-        //   Authorization: `Bearer ${user.token}`,
-        // },
-        credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
       };
       const { data } = await axios.post(
         "http://localhost:5000/chat/group",

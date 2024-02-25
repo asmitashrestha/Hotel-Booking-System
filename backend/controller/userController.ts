@@ -2,7 +2,7 @@ import { validationResult } from "express-validator";
 import User from "../model/UserModel";
 import jwt from "jsonwebtoken";
 const asyncHandler = require("express-async-handler");
-
+// const generateToken = require("../config/generateToken")
 
 // logic responsible for signup or registration
 export const createNewUser = async (req, res) => {
@@ -37,6 +37,11 @@ export const createNewUser = async (req, res) => {
     });
     return res.status(200).json({
       msg: "User Registered Successfully",
+      userId:user._id,
+      name:user.name,
+      email:user.email,
+      img:user.img,
+      token:token,
     });
   } catch (error) {
     console.log(error);
@@ -52,7 +57,7 @@ export const findUsers = asyncHandler(async(req,res)=>{
           {email: { $regex: req.query.search, $options: "i"}},
       ]
   }: {};
-  const users = await User.find(keyword).find({_id:{$ne:req.user._id}})
+  const users = await User.find(keyword).find({_id:{$ne:req.userId}})
   res.send(users)
   
 })

@@ -38,8 +38,15 @@ export default async function verifyUserLogin(req,res){
       secure: process.env.NODE_ENV === "production",
       maxAge: 86400000,
     })
+    console.log(token);
+    
     res.status(200).json({
-      userId: user._id
+      userId: user._id,
+      name:user.name,
+      email:user.email,
+      img:user.img,
+      token:token,
+      msg:"Login sucessfully"
     })
 
   } catch (error) {

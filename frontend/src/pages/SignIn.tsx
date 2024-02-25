@@ -11,27 +11,25 @@ export type SignInFormData = {
 };
 
 const SignIn = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const queryClient = useQueryClient()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignInFormData>();
-  
-
 
   const mutation = useMutation(apiClient.signIn, {
     onSuccess: async () => {
       console.log("Login successful!");
-      await queryClient.invalidateQueries("validateToken")
+      await queryClient.invalidateQueries("validateToken");
       toast.success("Login successful!", {
         position: toast.POSITION.TOP_RIGHT, // Adjust based on your desired position
         autoClose: 500, // Adjust the duration the toast is displayed
         hideProgressBar: false,
       });
-      navigate(location.state?.from?.pathname||'/')
+      navigate(location.state?.from?.pathname || "/");
     },
     onError: (error: Error) => {
       console.log(error.message);
@@ -42,11 +40,10 @@ const SignIn = () => {
       });
     },
   });
-  
-  const onSubmit = handleSubmit((data)=>{
-mutation.mutate(data)
-  })
 
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate(data);
+  });
 
   return (
     <>
@@ -95,13 +92,14 @@ mutation.mutate(data)
                   </label>
                 </div>
                 <div className="text-sm">
-                    <Link to='forget-password'
-                      className="font-semibold text-indigo-600 hover:text-indigo-500 ml-60 
+                  <Link
+                    to="forget-password"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500 ml-60 
                       relative bottom-6"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
                 <div className="mt-2">
                   <input
                     id="password"
@@ -124,8 +122,7 @@ mutation.mutate(data)
                   </span>
                 )}
               </div>
-              <div>
-              </div>
+              <div></div>
 
               <div>
                 <button
@@ -134,7 +131,7 @@ mutation.mutate(data)
                 >
                   Sign In
                 </button>
-                <ToastContainer/>
+                <ToastContainer />
               </div>
             </form>
           </div>

@@ -37,13 +37,10 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
 
     try {
       const config = {
-        // headers: {
-        //   Authorization: `Bearer ${user.token}`,
-        // },
-        credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+     
       };
 
       setLoading(true);
@@ -57,6 +54,8 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
 
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
+      console.log(error);
+      
       // Handle error
     }
   };
@@ -68,7 +67,7 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
         const config = {
           headers: {
             "Content-type": "application/json",
-            // Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         };
         setNewMessage("");
@@ -83,6 +82,8 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
+        console.log(error);
+        
         // Handle error
       }
     }
