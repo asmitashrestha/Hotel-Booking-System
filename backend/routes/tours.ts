@@ -49,6 +49,6 @@ router.delete("/addtour/:tourId", verifyToken , deleteTour)
 
 router.post('/:tourId/bookings/payment-intent',verifyToken, paymentTour)
 
-router.post('/:tourId/bookings', verifyToken, confirmBooking )
+router.post('/:tourId/bookings',verifyToken, confirmBooking )
 
 module.exports = router

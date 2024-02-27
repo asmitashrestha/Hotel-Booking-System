@@ -36,7 +36,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
       toast.success("Tour Booked");
     },
     onError: (error) => {
-      toast.error("An error occurred");
+      toast.error("No seat available");
     console.log("Toast error message",error);
         },
   });

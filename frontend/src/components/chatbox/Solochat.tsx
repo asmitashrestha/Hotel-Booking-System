@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import Groupchatupdate from "./Groupchatupdate";
 import Scrollbar from "./Scrollbar";
 import Lottie from "react-lottie"; // Import Lottie from react-lottie
@@ -9,9 +9,10 @@ import { useChatState } from "../../contexts/ChatProvider";
 import { getUser, getUserInfo } from "./ChatLogics";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 const ENDPOINT = "http://localhost:5000";
-let socket, selectedChatCompare;
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>, selectedChatCompare: { _id: any; };
 
 const Solochat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -46,8 +47,8 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:5000/message/${selectedChat._id}`,
-        config
+        `http://localhost:5000/message/${selectedChat._id}`,config
+
       );
       setMessages(data);
       setLoading(false);
@@ -81,6 +82,7 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
         );
         socket.emit("new message", data);
         setMessages([...messages, data]);
+        // window.location.reload()
       } catch (error) {
         console.log(error);
         
@@ -147,6 +149,7 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
             {messages && !selectedChat.isGroupChat ? (
               <>
                 {getUser(user, selectedChat.users)}
+                {/* <h1 className="text-red-700">{selectedChat.users}</h1> */}
                 <button onClick={() => getUserInfo(user, selectedChat.users)}>
                   <CgProfile />
                 </button>

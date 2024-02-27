@@ -1,8 +1,7 @@
-import { log } from "console";
 
 const asyncHandler = require("express-async-handler");
-const Chat = require("../model/ChatModel");
-const User = require("../model/UserModel");
+import Chat from "../model/ChatModel";
+import User from "../model/UserModel";
 
 //@description     Create or fetch One to One Chat
 //@route           POST /api/chat/
@@ -19,15 +18,15 @@ export const accessChat = asyncHandler(async (req, res) => {
   var isChat = await Chat.find({
     isGroupChat: false,
     $and: [
-      { users: { $elemMatch: { $eq: req.user._id } } },
+      { users: { $elemMatch: { $eq: req.userId} } },
       { users: { $elemMatch: { $eq: userId } } },
     ],
   })
     .populate("users", "-password")
-    .populate("latestMessage");
+    .populate("newMessage");
 
   isChat = await User.populate(isChat, {
-    path: "latestMessage.sender",
+    path: "newMessage.sender",
     // select: "name img email",
     select: "name img email",
   });
@@ -38,7 +37,7 @@ export const accessChat = asyncHandler(async (req, res) => {
     var chatData = {
       chatName: "sender",
       isGroupChat: false,
-      users: [req.user._id, userId],
+      users: [req.userId, userId],
     };
 
     try {
@@ -62,7 +61,7 @@ export const accessChat = asyncHandler(async (req, res) => {
 //@access          Protected
 export const fetchChats = asyncHandler(async (req, res) => {
   try {
-    Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+    Chat.find({ users: { $elemMatch: { $eq: req.userId } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("newMessage")

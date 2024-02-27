@@ -108,3 +108,4 @@ const TourSchema = new mongoose.Schema<TourType>(
 const Tour = mongoose.model("Tour", TourSchema);
 
 export default Tour;
+

@@ -26,17 +26,20 @@ const App = () => {
         <Route path="/register" element={<Register/>} />
         <Route path="/signin" element={<SignIn />} />
          <Route path="/searchtour" element={<Search/>} />
+         <Route path="/get-tour" element={<MyTour />} />
             {/* <Route path="/details/$"/> */}
             <Route path="/details/:tourId"  element={<Details/>}/>
+            <Route path="/search-tour/:tourId/booking" element={<Booking/>}/>
+
         {isLoggedIn && (
           <>
           <Route path="/chats" element={<Chats />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/chats/:id" element />
 
-          <Route path="/search-tour/:tourId/booking" element={<Booking/>}/>
+          {/* <Route path="/search-tour/:tourId/booking" element={<Booking/>}/> */}
             <Route path="/addtour" element={<AddTours />} />
-            <Route path="/get-tour" element={<MyTour />} />
+            {/* <Route path="/get-tour" element={<MyTour />} /> */}
             <Route path="/edit-tour/:tourId" element={<EditTour />} />
             <Route path="/delete-tour/:tourId" element={<DeleteTour />} />
            <Route path="/my-bookings" element={<MyBooking/>}/>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Tooltip } from "@chakra-ui/tooltip";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
@@ -18,9 +18,9 @@ import { Box, Text } from "@chakra-ui/layout";
 import { IoMdNotifications } from "react-icons/io";
 import { useChatState } from "../../contexts/ChatProvider";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useNavigate } from 'react-router-dom';
-import Chatloading from './Chatloading';
-import Userlist from './Userlist';
+import { useNavigate } from "react-router-dom";
+import Chatloading from "./Chatloading";
+import Userlist from "./Userlist";
 
 const Sidebar = () => {
   const [search, setSearch] = useState("");
@@ -38,7 +38,7 @@ const Sidebar = () => {
   // };
 
   const showUserInfo = () => {
-    navigate('/profile');
+    navigate("/profile");
   };
 
   const handleSearch = async () => {
@@ -60,22 +60,22 @@ const Sidebar = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("sidebar",config);
-      
+      console.log("sidebar", config);
 
-      const { data } = await axios.get(`http://localhost:5000/api/users/register?search=${search}`, config);
+      // console.log(search);
+
+      const { data } = await axios.get(
+        `http://localhost:5000/api/users/register?search=${search}`,
+        config
+      );
 
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
       console.log(error);
-      
       toast.error("Failed to Load the Results");
     }
   };
-
-
-  
 
   const accessChat = async (userId) => {
     console.log(userId);
@@ -93,9 +93,13 @@ const Sidebar = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("sidebar",config);
-      
-      const { data } = await axios.post(`http://localhost:5000/chat`, { userId }, config);
+      console.log("sidebar", config);
+
+      const { data } = await axios.post(
+        `http://localhost:5000/chat`,
+        { userId },
+        config
+      );
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
@@ -103,17 +107,13 @@ const Sidebar = () => {
       onClose();
     } catch (error) {
       console.log(error);
-      
-      toast.error('Error fetching the chat');
+
+      toast.error("Error fetching the chat");
     }
   };
 
- 
-  
-
   return (
-    <div className='boxcontainer'>
-
+    <div className="boxcontainer">
       <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
         <Button variant="ghost" onClick={onOpen}>
           <FaSearch />
@@ -130,11 +130,17 @@ const Sidebar = () => {
 
         <div className="tit-chat flex space-between">
           <div className="tit-left mr-8">
-            <IoMdNotifications className='h-8 w-7' />
+            <IoMdNotifications className="h-8 w-7" />
           </div>
           <div className="tit-right flex">
             <button onClick={showUserInfo}>
-              <img src={user.img} alt="user profile" height='30px' width='41px' className='img-user mr-2' />
+              <img
+                src={user.img}
+                alt="user profile"
+                height="30px"
+                width="41px"
+                className="img-user mr-2"
+              />
             </button>
           </div>
           {/* <button className='logout ml-4' onClick={logoutHandler}>Logout</button> */}
@@ -153,7 +159,9 @@ const Sidebar = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button onClick={handleSearch}><FaSearch /></Button>
+              <Button onClick={handleSearch}>
+                <FaSearch />
+              </Button>
             </Box>
             {loading ? (
               <Chatloading />
@@ -170,7 +178,7 @@ const Sidebar = () => {
           </DrawerBody>
         </DrawerContent>
       </Drawer>
-      <hr className='line' />
+      <hr className="line" />
     </div>
   );
 };

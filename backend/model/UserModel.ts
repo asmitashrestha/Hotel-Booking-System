@@ -62,11 +62,11 @@ const userSchema = mongoose.Schema({
     required: true,
   },
   img: { type: String, required: false },
-  isVerified: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
+  // isVerified: {
+  //   type: Boolean,
+  //   required: true,
+  //   default: false,
+  // },
 },
 {
     timestamps: true

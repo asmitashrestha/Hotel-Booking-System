@@ -1,5 +1,3 @@
-
-
 import { FaPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +8,7 @@ import { useChatState } from "../../contexts/ChatProvider";
 import Groupchat from "./Groupchat";
 
 const MyChats = ({ fetchAgain }) => {
-  const [loggedUser, setLoggedUser] = useState();
+  const [loggedUser, setLoggedUser] = useState(null);
 
   const { selectedChat, setSelectedChat, user, chats, setChats } =
     useChatState();
@@ -18,24 +16,13 @@ const MyChats = ({ fetchAgain }) => {
 
   const fetchChats = async () => {
     try {
-      // let user = JSON.parse(localStorage.getItem("userInfo"));
-      // if (!user || !user.token) {
-      //   console.error("User info or token is missing.");
-      //   return;
-      // }
-
+     
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      console.log("Mychat", user.token);
-      console.log(user.name);
-      console.log(user.email);
-      // console.log(user.password);
       
-      
-
       const response = await fetch("http://localhost:5000/chat", {
         method: "GET",
         headers: {
@@ -44,9 +31,8 @@ const MyChats = ({ fetchAgain }) => {
           credentials: "include",
         },
       });
-      console.log("My chat res",response);
+      // console.log("My chat res",response);
       
-
       if (response.ok) {
         const data = await response.json();
         setChats(data);
@@ -63,6 +49,7 @@ const MyChats = ({ fetchAgain }) => {
     fetchChats();
     // eslint-disable-next-line
   }, [fetchAgain]);
+
 
   return (
     <div

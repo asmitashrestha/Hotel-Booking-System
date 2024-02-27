@@ -33,7 +33,7 @@ const Scrollbar = ({ messages }) => {
               className="message"
               style={{
                 backgroundColor: `${
-                  m.sender._id === user._id ? "#1d40db" : "rgb(86, 93, 133)"
+                  m.sender._id === user._id ? "#314081" : "rgb(38, 63, 189)"
                 }`,
                 color: `${
                   m.sender._id === user._id ? "#ececf0" : "#fbffff"

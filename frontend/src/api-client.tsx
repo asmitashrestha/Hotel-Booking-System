@@ -27,26 +27,6 @@ export const register = async (formData: RegisterFormData) => {
 
 };
 
-// export const signIn = async (formData: SignInFormData) => {
-//   const response = await fetch(`http://localhost:5000/api/users/signin`, {
-//     method: "POST",
-//     credentials: "include",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(formData),
-//   });
-//   const body = await response.json();
-
-//   if (!response.ok) {
-//     throw new Error(body.message);
-//   }
-//   localStorage.setItem("userInfo",JSON.stringify(body))
-//   console.log("Userinfo",JSON.stringify(body));
-  
-//   return body;
-// };
-
 export const signIn = async (formData: SignInFormData) => {
   const response = await fetch(`http://localhost:5000/api/users/signin`, {
     method: "POST",
@@ -56,23 +36,15 @@ export const signIn = async (formData: SignInFormData) => {
     },
     body: JSON.stringify(formData),
   });
+  const body = await response.json();
 
   if (!response.ok) {
-    const errorBody = await response.json();
-    throw new Error(errorBody.message);
+    throw new Error(body.message);
   }
-
-  const responseBody = await response.json();
-  const token = responseBody.token;
-
-  if (!token) {
-    throw new Error("Token not found in response.");
-  }
-
-  localStorage.setItem("userInfo", JSON.stringify(responseBody));
-  console.log("Userinfo login", token);
+  localStorage.setItem("userInfo",JSON.stringify(body))
+  console.log("Userinfo",JSON.stringify(body));
   
-  return responseBody;
+  return body;
 };
 
 

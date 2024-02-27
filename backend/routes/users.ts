@@ -3,8 +3,8 @@ import { check } from "express-validator";
 import verifyUserLogin from "../controller/authController";
 import verifyToken from "../middlewares/auth";
 import { bookingUserDetails, createNewUser, findUsers } from "../controller/userController";
-const router = express.Router();
-
+// const router = express.Router();
+const router = express();
 router.get('/me',verifyToken, bookingUserDetails)
 
 router.post(
@@ -30,7 +30,11 @@ router.post(
   verifyUserLogin
 );
 
-router.get("/validate-token", verifyToken, (req, res) => {
+// router.get("/validate-token", verifyToken, (req, res) => {
+//   res.status(200).send({ userId: req.userId });
+// });
+
+router.get("/validate-token", verifyToken, (req: any, res) => { // Here, you can use 'any' for req if TypeScript still throws error
   res.status(200).send({ userId: req.userId });
 });
 

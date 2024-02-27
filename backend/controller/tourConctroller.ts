@@ -203,6 +203,38 @@ export const viewDetailsById = async (req, res) => {
   }
 };
 
+// export const paymentTour = async (req, res) => {
+//   const tourId = req.params.tourId;
+//   const tour = await Tour.findById(tourId);
+//   if (!tour) {
+//     return res.status(400).json({
+//       msg: "Tour not found",
+//     });
+//   }
+//   const totalCost = tour.pricePerPackage * tour.countPeople;
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: totalCost,
+//     currency: "gbp",
+//     metadata: {
+//       tourId,
+//       userId: req.userId,
+//     },
+//   });
+//   if (!paymentIntent.client_secret) {
+//     return res.status(500).json({
+//       msg: "Error creating payment intent",
+//     });
+//   }
+// console.log(paymentIntent);
+
+//   const response = {
+//     paymentIntentId: paymentIntent.id,
+//     clientsecret: paymentIntent.client_secret.toString(),
+//     totalCost,
+//   };
+//   res.send(response);
+// };
+
 export const paymentTour = async (req, res) => {
   const tourId = req.params.tourId;
   const tour = await Tour.findById(tourId);
@@ -235,62 +267,6 @@ console.log(paymentIntent);
   res.send(response);
 };
 
-// export const confirmBooking = async (req, res) => {
-//   try {
-//     const paymentIntentId = req.body.paymentIntentId;
-//     const paymentIntent = await stripe.paymentIntents.retrieve(
-//       paymentIntentId as string
-//     );
-//     if (!paymentIntent) {
-//       return res.status(400).json({
-//         msg: "Payment intent not found",
-//       });
-//     }
-//     if (
-//       paymentIntent.metadata.tourId !== req.params.tourId ||
-//       paymentIntent.metadata.userId !== req.userId
-//     ) {
-//       return res.status(400).json({
-//         msg: "Payment intent mismatch",
-//       });
-//     }
-//     if (paymentIntent.status !== "succeeded") {
-//       return res.status(400).json({
-//         msg: `Payment intent not succeeded. Status: ${paymentIntent.status}`,
-//       });
-//     }
-
-//     const newBooking: BookingType = {
-//       ...req.body,
-//       userId: req.userId,
-//     };
-//     const tour = await Tour.findOneAndUpdate(
-//       {
-//         _id: req.params.tourId,
-//       },
-//       {
-//         $push: { bookings: newBooking },
-//       }
-//     );
-
-//     if(!tour){
-//       return res.status(400).json({
-//         msg:"Tour not found"
-//       })
-//     }
-
-//     await tour.save()
-//     res.status(200).send()
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       msg: "Error occured while booking",
-//     });
-//   }
-// };
-
-
-// import Tour from 'path/to/Tour'; // Import the Tour model
 
 export const confirmBooking = async (req, res) => {
   try {
@@ -357,6 +333,65 @@ export const confirmBooking = async (req, res) => {
     });
   }
 };
+
+
+
+// export const confirmBooking = async (req, res) => {
+//   try {
+//     const paymentIntentId = req.body.paymentIntentId;
+//     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId as string);
+
+//     if (!paymentIntent) {
+//       return res.status(400).json({
+//         msg: "Payment intent not found",
+//       });
+//     }
+
+//     // Ensure that the payment intent status is succeeded
+//     if (paymentIntent.status !== "succeeded") {
+//       return res.status(400).json({
+//         msg: `Payment intent not succeeded. Status: ${paymentIntent.status}`,
+//       });
+//     }
+
+//     const tourId = req.params.tourId;
+//     const tour = await Tour.findById(tourId);
+
+//     if (!tour) {
+//       return res.status(400).json({
+//         msg: "Tour not found",
+//       });
+//     }
+
+//     // Check if tour is available for booking (e.g., not fully booked, not expired, etc.)
+//     if (!isTourAvailableForBooking(tour)) {
+//       return res.status(400).json({
+//         msg: "Tour is not available for booking",
+//       });
+//     }
+
+//     const newBooking: BookingType = {
+//       ...req.body,
+//       userId: req.userId,
+//     };
+
+//     // Update the tour with the new booking
+//     tour.bookings.push(newBooking);
+//     await tour.save();
+
+//     res.status(200).json({
+//       msg: "Booking confirmed successfully",
+//     });
+//   } catch (error) {
+//     console.error("Error occurred while confirming booking:", error);
+//     res.status(500).json({
+//       msg: "Error occurred while confirming booking",
+//     });
+//   }
+// };
+
+// Function to check if the tour is available for booking
+
 
 
 const constructSearchQuery = (queryParams: any) => {
