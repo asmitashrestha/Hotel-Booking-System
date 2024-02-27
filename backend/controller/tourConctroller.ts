@@ -29,9 +29,11 @@ export const myTourList = async (req, res) => {
   }
 };
 
+
+
 export const getTourList = async (req, res) => {
   try {
-    const tours = await Tour.find({ userId: req.userId });
+    const tours = await Tour.find();
     res.json(tours);
   } catch (error) {
     res.status(500).json({
@@ -40,13 +42,32 @@ export const getTourList = async (req, res) => {
   }
 };
 
+
+
+// export const fetchParticularTour = async (req, res) => {
+//   const id = req.params.id.toString();
+//   try {
+//     const tour = await Tour.findOne({
+//       _id: id,
+//       userId: req.userId,
+//     });
+//     res.json(tour);
+//   } catch (error) {
+//     res.status(500).json({
+//       msg: "Error fetching tour",
+//     });
+//   }
+// };
+
 export const fetchParticularTour = async (req, res) => {
   const id = req.params.id.toString();
   try {
     const tour = await Tour.findOne({
       _id: id,
-      userId: req.userId,
     });
+    if (!tour) {
+      return res.status(404).json({ msg: "Tour not found" });
+    }
     res.json(tour);
   } catch (error) {
     res.status(500).json({
@@ -54,6 +75,7 @@ export const fetchParticularTour = async (req, res) => {
     });
   }
 };
+
 
 export const editTour = async (req, res) => {
   try {

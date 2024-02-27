@@ -3,6 +3,7 @@ import { BookingType } from "../shared/types";
 
 export type TourType = {
   _id: string;
+  postedByUserId: string;
   userId: string;
   city: string;
   description: string;
@@ -62,6 +63,10 @@ const TourSchema = new mongoose.Schema<TourType>(
     type: {
       type: String,
       required: true,
+    },
+    postedByUserId: { // New field for indicating who posted the tour
+      type: String,
+      required: false,
     },
     countPeople: {
       type: Number,
