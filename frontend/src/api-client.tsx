@@ -112,6 +112,7 @@ export const addMyTour = async (tourFormData: FormData) => {
   }
 };
 
+
 // get all tour package
 
 export const fetchTours = async (): Promise<TourType[]> => {

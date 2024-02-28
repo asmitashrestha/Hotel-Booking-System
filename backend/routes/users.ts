@@ -35,7 +35,15 @@ router.post(
 // });
 
 router.get("/validate-token", verifyToken, (req: any, res) => { // Here, you can use 'any' for req if TypeScript still throws error
-  res.status(200).send({ userId: req.userId });
+  const {user} = req;
+  res.status(200).send({ userId: req.userId ,
+  user:{
+    id:user._id,
+    name:user.name,
+    email:user.email,
+    isVerified:user.isVerified,
+    role:user.role,
+  }});
 });
 
 router.post("/signout", (req, res) => {

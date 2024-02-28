@@ -12,9 +12,10 @@ export default async function verifyUserLogin(req,res){
       msg: errors.array()
     })
   }
-  const {email, password} = req.body
+  const {email, password} = req.body 
+  const user = await User.findOne({email})
   try {
-    const user = await User.findOne({email})
+ 
     if(!user){
       return res.status(400).json({
         msg:"Invalid Credentials"
@@ -26,6 +27,9 @@ export default async function verifyUserLogin(req,res){
         msg:"Invalid Credentials"
       })
     }
+
+    const {_id, name , email, isVerified,role} = user
+
     const token = jwt.sign(
       {userId: user.id},
       process.env.JWT_SECRET_KEY as string,
@@ -46,6 +50,7 @@ export default async function verifyUserLogin(req,res){
       email:user.email,
       img:user.img,
       token:token,
+      user:{id:_id,name,email,role,token:token, isVerified},
       msg:"Login sucessfully"
     })
 

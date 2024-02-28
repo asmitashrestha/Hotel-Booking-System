@@ -29,8 +29,6 @@ export const myTourList = async (req, res) => {
   }
 };
 
-
-
 export const getTourList = async (req, res) => {
   try {
     const tours = await Tour.find();

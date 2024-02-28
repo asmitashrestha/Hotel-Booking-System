@@ -15,9 +15,14 @@ import Register from "./pages/Register";
 import MyBooking from "./pages/MyBooking";
 import Chats from "./pages/Chats";
 import Profile from "./pages/Profile";
+import AdminNavigator from "./navigator/AdminNavigator";
+
 
 const App = () => {
-  const {isLoggedIn} = useAppContext()
+  const {userData,isLoggedIn} = useAppContext()
+  const isAdmin=userData&&userData.user?.role==='admin'
+  console.log(isAdmin)
+  if(isAdmin) return <AdminNavigator />
   return (
     <div className="">
         <Header />

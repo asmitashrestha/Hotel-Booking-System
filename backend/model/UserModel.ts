@@ -9,6 +9,7 @@ export type UserType = {
   email: string;
   passwrod: string;
   isVerified: boolean;
+  role:'admin'|'user';
 };
 
 // const UserSchema = new Schema({
@@ -67,6 +68,12 @@ const userSchema = mongoose.Schema({
     required: true,
     default: false,
   },
+  role:{
+    type:String,
+    requierd:true,
+    default:'user',
+    enum:['admin','user']
+  }
 },
 {
     timestamps: true
