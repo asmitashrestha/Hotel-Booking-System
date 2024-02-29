@@ -36,7 +36,7 @@ const SignOutButton = () => {
   
   return (
     <div>
-      <button onClick={handleClick} className="text-blue-500 px-3 font-bold bg-white hover;bg-gray-100">Sign Out</button>
+      <button onClick={handleClick} className="text-gray-800 px-3 py-[9px] rounded-lg font-semibold text-xl bg-white hover:bg-gray-500">Sign Out</button>
       <ToastContainer/>
     </div>
   )

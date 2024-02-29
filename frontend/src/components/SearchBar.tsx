@@ -18,7 +18,7 @@ const SearchMenu = () => {
 
   return (
     <form onSubmit={handleSubmit} className="">
-      <div className="search-bar bg-gray-300 flex justify-center text-center">
+      <div className="search-bar flex justify-center text-center">
         <div className="search-container p-4 ">
           <MdTravelExplore size={25} className={"mr-2"} />
           <input

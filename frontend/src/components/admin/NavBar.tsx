@@ -21,7 +21,7 @@ export default function NavBar() {
             </li>
 
             <li>
-                <NavItem to="/addTour">Add Tours</NavItem>
+                <NavItem to="/addtour">Add Tours</NavItem>
             </li>
 
             <li>
@@ -34,12 +34,12 @@ export default function NavBar() {
                 <span className='font-semibold text-white text-xl'>
                     Admin
                 </span>
-                <button className='flex items-center text-dark-subtle text-sm hover:text-white transition space-x-1'>
+                <div className='flex items-center text-dark-subtle text-sm hover:text-white transition space-x-1'>
                 <MdLogout />
                 <span>
                     <SignOutButton />
                 </span>
-                </button>
+                </div>
             </div>
     </div>
   </nav>
