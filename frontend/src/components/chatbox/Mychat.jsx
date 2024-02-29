@@ -1,46 +1,34 @@
+import { Box, Stack, Text } from "@chakra-ui/layout";
 import { FaPlus } from "react-icons/fa";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { getUser } from "../chatbox/ChatLogics";
 import ChatLoading from "../chatbox/Chatloading";
-import { useChatState } from "../../contexts/ChatProvider";
+import { ChatState } from "../../contexts/ChatProvider";
 import Groupchat from "./Groupchat";
 
 const MyChats = ({ fetchAgain }) => {
-  const [loggedUser, setLoggedUser] = useState(null);
+  const [loggedUser, setLoggedUser] = useState();
 
-  const { selectedChat, setSelectedChat, user, chats, setChats } =
-    useChatState();
-  const isSelected = selectedChat;
+  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const isSelected = selectedChat 
+
 
   const fetchChats = async () => {
+    // console.log(user._id);
     try {
-     
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      
-      const response = await fetch("http://localhost:5000/chat", {
-        method: "GET",
-        headers: {
-          ...config.headers,
-          "Content-Type": "application/json",
-          credentials: "include",
-        },
-      });
-      // console.log("My chat res",response);
-      
-      if (response.ok) {
-        const data = await response.json();
-        setChats(data);
-      } else {
-        toast.error("Failed to load chats");
-      }
+
+      const { data } = await axios.get("http://localhost:5000/chat", config);
+      setChats(data);
     } catch (error) {
-      console.log("Error mychat",error);
+      toast.error('Failed to load chats')
     }
   };
 
@@ -50,19 +38,16 @@ const MyChats = ({ fetchAgain }) => {
     // eslint-disable-next-line
   }, [fetchAgain]);
 
-
   return (
-    <div
-      className={`flex flex-col  p-3 bg-white rounded-lg border ${
-        selectedChat ? "hidden" : "flex"
-      } md:flex`}
-    >
-      <div className="text-xl mt-2">
+    <div className={`flex flex-col  p-3 bg-white rounded-lg border ${selectedChat ? 'hidden' : 'flex'} md:flex`}>
+      <div
+       className="text-xl mt-2"
+      >
         My Chats
         <Groupchat>
-          <button className="flex  relative start-32 bottom-14 mt-7 p-1  text-xl bold hover:text-white hover:bg-blue-400 rounded-lg ">
-            New Group Chat
-            <FaPlus className="ml-2 mt-1 mr-2" />
+          <button className="flex  relative start-32 bottom-14  p-1  text-xl bold hover:text-white hover:bg-blue-400 rounded-lg mt-4"
+          >
+            New Group Chat<FaPlus className="ml-2 mt-1 mr-2"/>
           </button>
         </Groupchat>
       </div>
@@ -73,16 +58,14 @@ const MyChats = ({ fetchAgain }) => {
               <button
                 onClick={() => setSelectedChat(chat)}
                 className={`block cursor-pointer mt-1 w-80 px-3 py-2 rounded-lg ${
-                  isSelected
-                    ? "bg-blue-400 text-white"
-                    : "bg-gray-200 text-black"
+                  isSelected ? "bg-blue-400 text-white" : "bg-gray-200 text-black"
                 }`}
                 key={chat._id}
               >
                 <p>
                   {!chat.isGroupChat
                     ? getUser(loggedUser, chat.users)
-                    : chat.messageName}
+                    : chat. messageName}
                 </p>
                 {chat.newMessage && (
                   <div className="text-xs">
@@ -104,4 +87,3 @@ const MyChats = ({ fetchAgain }) => {
 };
 
 export default MyChats;
-

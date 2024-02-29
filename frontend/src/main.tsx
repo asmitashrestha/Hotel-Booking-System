@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { AppContextProvider } from "./contexts/AppContext.tsx";
 import { SearchContextProvider } from "./contexts/SearchContext.tsx";
 import { ChakraProvider } from '@chakra-ui/react';
-import ChatProvider from "./contexts/ChatProvider.tsx";
+import ChatProvider from "./contexts/ChatProvider.jsx";
 
 
 const queryClient = new QueryClient({

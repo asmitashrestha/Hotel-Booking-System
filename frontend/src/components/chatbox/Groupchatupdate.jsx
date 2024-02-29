@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useChatState } from "../../contexts/ChatProvider";
+import { ChatState } from "../../contexts/ChatProvider";
 import UserItem from "./UserItem";
 import UserList from './Userlist'
 import Skeleton from 'react-loading-skeleton'
@@ -19,7 +19,7 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     setSelectedChat,
     user,
     setNotification,
-  } = useChatState();
+  } = ChatState();
 
   const handleSearch = async (query) => {
     setSearch(query);
@@ -33,18 +33,12 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-      
       };
-
-      console.log("Group",config);
-      
-      const { data } = await axios.get(`http://localhost:5000/api/users/register?search=${search}`, config);
+      const { data } = await axios.get(`http://localhost:5000/api/users?search=${search}`, config);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
       // Handle error
-      console.log(error);
-      
       setLoading(false);
     }
   };
@@ -58,7 +52,6 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-      
       };
       const { data } = await axios.put(
         `http://localhost:5000/chat/rename`,
@@ -74,7 +67,6 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setRenameLoading(false);
     } catch (error) {
       // Handle error
-      console.log(error)
       setRenameLoading(false);
     }
     setGroupChatName("");
@@ -97,7 +89,6 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-      
       };
       const { data } = await axios.put(
         `http://localhost:5000/chat/groupadd`,
@@ -112,8 +103,6 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
       setFetchAgain(!fetchAgain);
       setLoading(false);
     } catch (error) {
-      console.log(error);
-      
       // Handle error
       setLoading(false);
     }
@@ -131,7 +120,6 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-     
       };
       const { data } = await axios.put(
         `http://localhost:5000/chat/groupremove`,
@@ -142,12 +130,11 @@ const Groupchatupdate = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         config
       );
 
-      userOne._id === user._id ? setSelectedChat(data) : setSelectedChat(data);
+      userOne._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       fetchMessages();
       setLoading(false);
     } catch (error) {
-      console.log(error)
       // Handle error
       setLoading(false);
     }

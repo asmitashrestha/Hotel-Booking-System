@@ -5,10 +5,10 @@ import {
   isSameSenderMargin,
   isSameUser,
 } from "./ChatLogics";
-import { useChatState } from "../../contexts/ChatProvider"
+import { ChatState } from "../../contexts/ChatProvider"
 
 const Scrollbar = ({ messages }) => {
-  const { user } = useChatState();
+  const { user } = ChatState();
 
   return (
     <ScrollableFeed>
@@ -33,14 +33,13 @@ const Scrollbar = ({ messages }) => {
               className="message"
               style={{
                 backgroundColor: `${
-                  m.sender._id === user._id ? "#314081" : "rgb(38, 63, 189)"
+                  m.sender._id === user._id ? "#1d40db" : "rgb(86, 93, 133)"
                 }`,
                 color: `${
                   m.sender._id === user._id ? "#ececf0" : "#fbffff"
                 }`,
                 marginLeft: isSameSenderMargin(messages, m, i, user._id),
                 marginTop: isSameUser(messages, m, i, user._id) ? "3px" : "10px",
-                // marginTop: isSameUser(messages, m, user._id) ? "3px" : "10px",
                 borderRadius: "20px",
                 padding: "5px 15px",
                 maxWidth: "75%",

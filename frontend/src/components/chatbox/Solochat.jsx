@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 import Groupchatupdate from "./Groupchatupdate";
 import Scrollbar from "./Scrollbar";
-import Lottie from "react-lottie"; // Import Lottie from react-lottie
+//import Lottie from "react-lottie";
 import animationData from "../anima/typing.json";
-import { useChatState } from "../../contexts/ChatProvider";
+import { ChatState } from "../../contexts/ChatProvider";
 import { getUser, getUserInfo } from "./ChatLogics";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import { DefaultEventsMap } from "@socket.io/component-emitter";
 
-const ENDPOINT = "http://localhost:5000";
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>, selectedChatCompare: { _id: any; };
+const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+let socket, selectedChatCompare;
 
 const Solochat = ({ fetchAgain, setFetchAgain }) => {
   const [messages, setMessages] = useState([]);
@@ -22,7 +21,8 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
 
-  const { selectedChat, setSelectedChat, user, notification, setNotification } = useChatState();
+  const { selectedChat, setSelectedChat, user, notification, setNotification } = ChatState();
+   
 
   const defaultOptions = {
     loop: true,
@@ -41,22 +41,19 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
-     
       };
 
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:5000/message/${selectedChat._id}`,config
-
+        `http://localhost:5000/message/${selectedChat._id}`,
+        config
       );
       setMessages(data);
       setLoading(false);
 
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
-      console.log(error);
-      
       // Handle error
     }
   };
@@ -82,10 +79,7 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
         );
         socket.emit("new message", data);
         setMessages([...messages, data]);
-        // window.location.reload()
       } catch (error) {
-        console.log(error);
-        
         // Handle error
       }
     }
@@ -97,16 +91,23 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
+
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     fetchMessages();
+
     selectedChatCompare = selectedChat;
+    // eslint-disable-next-line
   }, [selectedChat]);
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
-      if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
+      if (
+        !selectedChatCompare ||
+        selectedChatCompare._id !== newMessageReceived.chat._id
+      ) {
         if (!notification.includes(newMessageReceived)) {
           setNotification([newMessageReceived, ...notification]);
           setFetchAgain(!fetchAgain);
@@ -115,7 +116,7 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
         setMessages([...messages, newMessageReceived]);
       }
     });
-  }, []);
+  });
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -143,15 +144,17 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
       {selectedChat ? (
         <>
           <div className="text-lg md:text-xl pb-3 px-2 w-full flex justify-between items-center">
-            <button className="md:hidden" onClick={() => setSelectedChat("")}>
-              <FaChevronCircleLeft />
+            <button
+              className="md:hidden"
+              onClick={() => setSelectedChat("")}
+            >
+              <FaChevronCircleLeft /> 
             </button>
             {messages && !selectedChat.isGroupChat ? (
               <>
                 {getUser(user, selectedChat.users)}
-                {/* <h1 className="text-red-700">{selectedChat.users}</h1> */}
-                <button onClick={() => getUserInfo(user, selectedChat.users)}>
-                  <CgProfile />
+                <button onClick={() =>{console.log("Button clicked"); getUserInfo(user, selectedChat.users)}}>
+                <CgProfile />
                 </button>
               </>
             ) : (
@@ -179,9 +182,8 @@ const Solochat = ({ fetchAgain, setFetchAgain }) => {
             <div className="mt-3">
               {istyping ? (
                 <div>
-                  <Lottie
+                  <div
                     options={defaultOptions}
-                    height={70}
                     width={70}
                     style={{ marginBottom: 15, marginLeft: 0 }}
                   />

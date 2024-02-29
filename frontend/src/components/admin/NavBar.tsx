@@ -25,7 +25,7 @@ export default function NavBar() {
             </li>
 
             <li>
-                <NavItem to="/deleTour">Delete Tours</NavItem>
+                <NavItem to={'/get-tour'}>Get Tour</NavItem>
             </li>
 
         </ul>

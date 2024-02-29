@@ -53,8 +53,8 @@ export const isLastMessage = (messages, i, userId) => {
   );
 };
 
-export const isSameUser = (messages, m, i,userId) => {
-  return i > 0 && messages[i - 1].sender._id === m.sender._id ;
+export const isSameUser = (messages, m, i) => {
+  return i > 0 && messages[i - 1].sender._id === m.sender._id;
 };
 
 

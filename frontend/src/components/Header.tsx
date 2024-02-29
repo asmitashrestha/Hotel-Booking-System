@@ -17,9 +17,9 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="ml-[550px]">
+        <div className="header ml-[550px]">
           {isLoggedIn ? (
-            <div className="flex p-2">
+            <div className="navs flex p-2">
               <Link to="/my-bookings" className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">
                 My Bookings
               </Link>

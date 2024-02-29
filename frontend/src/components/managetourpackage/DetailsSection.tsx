@@ -8,7 +8,7 @@ const DetailsSection = () => {
   }} = useFormContext<TourFormData>()
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold mb-3 text-center mt-2 text-gray-700 font-serif">Add Tour </h1>
+      <h1 className="text-3xl font-bold mb-3 text-center mt-2 text-gray-700 font-serif">Tour Details</h1>
    
       <div>
                 <div className="flex items-center justify-between">

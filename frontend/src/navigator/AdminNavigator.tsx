@@ -7,6 +7,7 @@ import AddTours from '../components/admin/AddTours';
 import EditTour from '../pages/EditTour';
 import DeleteTour from '../pages/DeleteTour';
 import MyBooking from '../pages/MyBooking';
+import MyTour from '../pages/MyTour';
 
 export default function AdminNavigator() {
 
@@ -23,7 +24,7 @@ export default function AdminNavigator() {
               <Route path="/" element={<Dashboard />} />
             {/* <Route path="/search-tour/:tourId/booking" element={<Booking/>}/> */}
               <Route path="/addtour" element={<AddTours />} />
-              {/* <Route path="/get-tour" element={<MyTour />} /> */}
+              <Route path="/get-tour" element={<MyTour />} />
               <Route path="/edit-tour/:tourId" element={<EditTour />} />
               <Route path="/delete-tour/:tourId" element={<DeleteTour />} />
               <Route path="/my-bookings" element={<MyBooking/>}/>
