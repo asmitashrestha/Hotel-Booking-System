@@ -305,6 +305,8 @@ export const createTourBooking = async (formData: BookingFormData) => {
         body: JSON.stringify(formData),
       }
     );
+    console.log("Data",response);
+    
 
     if (!response.ok) {
       throw new Error("Error booking tour");

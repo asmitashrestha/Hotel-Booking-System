@@ -26,9 +26,7 @@ const Header = () => {
               {/* <Link to="/get-tour" className="mr-4">
                 Get Tour
               </Link> */}
-              <Link to="/chats" className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">
-                ChatChit
-              </Link>
+              
               <div className="text-xl p-3 relative bottom-5">
                 <SignOutButton/>
               </div>

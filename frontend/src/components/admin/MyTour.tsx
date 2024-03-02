@@ -24,11 +24,16 @@ const MyTour = () => {
         {tourData.map((tour, index) => (
           <div
             key={index}
-            className=" bg-teal-100 flex-wrap mt-2 ml-4 rounded border-cyan-100"
+            className=" bg-teal-100 flex-wrap mt-2 ml-4 rounded
+             border-cyan-100"
           >
             <div className="p-4">
-              {/* <img src={tour.imageUrls} alt="" className="w-80" /> */}
-              <h2 className="font-bold mt-1">Location {tour.city}</h2>
+            <img src={tour.imageUrls[0]} alt="" className="" />
+            <div className="flex justify-between">
+            <h2 className="font-bold mt-1">Location: {tour.city}</h2>
+              <p>Price : {tour.pricePerPackage}</p>
+            </div>
+              
               <p className="text-sm font-semibold text-gray-800">
                 {tour.description}
               </p>
@@ -50,7 +55,7 @@ const MyTour = () => {
                 </p>
               </div>
               <div className="flex justify-between mt-2">
-                <p>Price : {tour.pricePerPackage}</p>
+                {/* <p>Price : {tour.pricePerPackage}</p> */}
                 <Link to={`/edit-tour/${tour._id}`} className="bg-blue-600 p-2 rounded">
                   View Details
                 </Link>

@@ -1,5 +1,6 @@
 import { Request, Response , NextFunction } from "express";
 import Tour, { TourType } from "../model/TourModel";
+import { BookingType } from "../shared/types";
 
 export const userBooking = async (
   req: Request,
@@ -32,3 +33,4 @@ export const userBooking = async (
     });
   }
 };
+

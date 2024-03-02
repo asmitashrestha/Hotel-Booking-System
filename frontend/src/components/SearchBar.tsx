@@ -2,7 +2,6 @@ import { FormEvent, useState } from "react";
 import { useSearchContext } from "../contexts/SearchContext";
 import { FaSearchLocation } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { TourType } from "../config/TourType";
 import { IoLocation } from "react-icons/io5";
 import { MdCategory, MdCurrencyRupee  } from "react-icons/md";
 

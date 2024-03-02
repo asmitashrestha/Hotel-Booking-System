@@ -60,8 +60,8 @@ const verifyToken =async (req, res, next) => {
     });
   }
   
-  // console.log("Token1",token);
-  // console.log("Token",req.headers.authorization);
+  console.log("Token1",token);
+  console.log("Token",req.headers.authorization);
   
 
   try {
@@ -79,7 +79,7 @@ const verifyToken =async (req, res, next) => {
   } catch (error) {
     console.log(error.message);
     return res.status(401).json({
-      msg: "Unauthorized"
+      msg: "Unauthorized "
     });
   }
 };

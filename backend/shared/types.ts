@@ -31,3 +31,5 @@ export type PaymentIntentResponse ={
   clientsecret: string;
   totalCost:number;
 }
+
+export { TourType };

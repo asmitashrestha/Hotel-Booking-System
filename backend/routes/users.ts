@@ -5,6 +5,7 @@ import verifyToken from "../middlewares/auth";
 import { bookingUserDetails, createNewUser, findUsers } from "../controller/userController";
 // const router = express.Router();
 const router = express();
+
 router.get('/me',verifyToken, bookingUserDetails)
 
 router.post(

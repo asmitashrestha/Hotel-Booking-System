@@ -13,8 +13,6 @@ import Details from "./pages/Details";
 import Booking from "./pages/Booking";
 import Register from "./pages/Register";
 import MyBooking from "./pages/MyBooking";
-import Chats from "./pages/Chats";
-import Profile from "./pages/Profile";
 import AdminNavigator from "./navigator/AdminNavigator";
 import HomePage from "./pages/HomePage";
 
@@ -39,10 +37,6 @@ const App = () => {
 
         {isLoggedIn && (
           <>
-          <Route path="/chats" element={<Chats />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/chats/:id" element />
-
           {/* <Route path="/search-tour/:tourId/booking" element={<Booking/>}/> */}
             {/* <Route path="/addtour" element={<AddTours />} /> */}
             {/* <Route path="/get-tour" element={<MyTour />} /> */}

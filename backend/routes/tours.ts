@@ -5,8 +5,6 @@ import { body } from "express-validator";
 import { confirmBooking, deleteTour, editTour, fetchParticularTour, getTourList, myTourList, paymentTour } from "../controller/tourConctroller";
 import Stripe from 'stripe'
 
-
-
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string)
 const router = express.Router();
 const storage = multer.memoryStorage();
