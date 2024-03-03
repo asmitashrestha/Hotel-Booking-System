@@ -1,13 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-// import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Footer from "./components/Footer";
 import { useAppContext } from "./contexts/AppContext";
-// import AddTours from "./pages/AddTours";
-// import MyTour from "./pages/MyTour";
-// import EditTour from "./pages/EditTour";
-// import DeleteTour from "./pages/DeleteTour";
+import Recommendation from './pages/RecommendedTours'
 import Search from "./pages/Search";
 import Details from "./pages/Details";
 import Booking from "./pages/Booking";
@@ -15,6 +11,7 @@ import Register from "./pages/Register";
 import MyBooking from "./pages/MyBooking";
 import AdminNavigator from "./navigator/AdminNavigator";
 import HomePage from "./pages/HomePage";
+import ChatPage from "./components/chatPage";
 
 
 const App = () => {
@@ -37,12 +34,9 @@ const App = () => {
 
         {isLoggedIn && (
           <>
-          {/* <Route path="/search-tour/:tourId/booking" element={<Booking/>}/> */}
-            {/* <Route path="/addtour" element={<AddTours />} /> */}
-            {/* <Route path="/get-tour" element={<MyTour />} /> */}
-            {/* <Route path="/edit-tour/:tourId" element={<EditTour />} />
-            <Route path="/delete-tour/:tourId" element={<DeleteTour />} /> */}
+           <Route path="/recommendedTours" element={<Recommendation/>} />
            <Route path="/my-bookings" element={<MyBooking/>}/>
+           <Route path="/chats" element={<ChatPage/>}/>
           </>
         )}
       </Routes>

@@ -3,6 +3,7 @@ import cors from "cors"
 const userRoutes = require('./routes/users')
 const tourRoutes = require('./routes/tours')
 const searchTourRoutes = require('./routes/toursearch')
+const recommendationRoutes=require('./routes/recommendation')
 const cookierParser = require("cookie-parser")
 import { v2 as cloudinary } from "cloudinary"
 import morgan from 'morgan'
@@ -49,10 +50,37 @@ app.use('/api/users',userRoutes)
 app.use('/api/my-package',tourRoutes)
 app.use('/api/search-tour', searchTourRoutes)
 app.use('/api/booking',bookingRoutes)
+app.use('/api/recommendation', recommendationRoutes);
 
 
 const server =app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
+
+
+const io = require("socket.io")(server, {
+  pingTimeout: 50000,
+  cors: {
+    origin: "http://localhost:5173",
+  }
+})
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+      socket.join(data);
+      console.log(`User with id= ${socket.id} joined Room`);
+  });
+
+  socket.on("send_message", (data) => {
+      socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+      console.log(`User disconnected: ${socket.id}`);
+  });
+});
+
 
 

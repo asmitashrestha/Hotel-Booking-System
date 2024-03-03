@@ -4,6 +4,7 @@ import verifyToken from "../middlewares/auth";
 import { body } from "express-validator";
 import { confirmBooking, deleteTour, editTour, fetchParticularTour, getTourList, myTourList, paymentTour } from "../controller/tourConctroller";
 import Stripe from 'stripe'
+import { sentimentRating } from "../controller/sentimentController";
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY as string)
 const router = express.Router();
@@ -48,5 +49,8 @@ router.delete("/addtour/:tourId", verifyToken , deleteTour)
 router.post('/:tourId/bookings/payment-intent',verifyToken, paymentTour)
 
 router.post('/:tourId/bookings',verifyToken, confirmBooking )
+
+router.post('/:tourId/ratings', verifyToken, sentimentRating);
+
 
 module.exports = router

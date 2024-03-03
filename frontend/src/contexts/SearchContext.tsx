@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
 
 type SearchContext = {
-  destination: string;
+  location: string; // Changed from destination to location
+  setLocation: (location: string) => void; // Setter function for location
+  tourType: string;
+  setTourType: (tourType: string) => void; // Setter function for tourType
+  budget: number;
+  setBudget: (budget: number) => void; // Setter function for budget
   tourId: string;
   countPeople: number;
   bookDate: Date;
   saveSearchValues: (
-    destination: string,
+    location: string, // Changed from destination to location
     countPeople: number,
     bookDate: Date
   ) => void;
@@ -21,8 +26,8 @@ type SearchContextProviderProps = {
 export const SearchContextProvider = ({
   children,
 }: SearchContextProviderProps) => {
-  const [destination, setDestination] = useState<string>(
-    () => sessionStorage.getItem("destination") || ""
+  const [location, setLocation] = useState<string>(
+    () => sessionStorage.getItem("location") || ""
   );
 
   const [bookDate, setBookDate] = useState<Date>(
@@ -38,20 +43,23 @@ export const SearchContextProvider = ({
     parseInt(sessionStorage.getItem("countPeople"))
   );
 
+  const [tourType, setTourType] = useState<string>(""); // State for tourType
+  const [budget, setBudget] = useState<number>(0); // State for budget
+
   const saveSearchValues = (
-    destination: string,
+    location: string, // Changed from destination to location
     countPeople?: number,
     bookDate?: Date,
     tourId?: string
   ) => {
-    setDestination(destination);
+    setLocation(location);
     setBookDate(bookDate || new Date());
     setCountPeople(countPeople);
     if (tourId) {
       setTourId(tourId);
     }
-    sessionStorage.setItem("destination", destination);
-  
+    sessionStorage.setItem("location", location);
+
     if (bookDate) {
       setBookDate(bookDate);
       sessionStorage.setItem("bookDate", bookDate.toISOString());
@@ -61,16 +69,26 @@ export const SearchContextProvider = ({
     }
 
     sessionStorage.setItem("countPeople", countPeople?.toString() || "0");
-    
-    if(tourId){
-    sessionStorage.setItem("tourId", tourId);  
+
+    if (tourId) {
+      sessionStorage.setItem("tourId", tourId);
     }
-    
   };
 
   return (
     <SearchContext.Provider
-      value={{ destination, tourId, bookDate, countPeople, saveSearchValues }}
+      value={{
+        location, // Changed from destination to location
+        setLocation, // Include setLocation in context value
+        tourType,
+        setTourType,
+        budget,
+        setBudget,
+        tourId,
+        countPeople,
+        bookDate,
+        saveSearchValues,
+      }}
     >
       {children}
     </SearchContext.Provider>

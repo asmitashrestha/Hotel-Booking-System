@@ -1,6 +1,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import SearchBar from "../components/SearchBar";
+import Home from "./Home";
 
 const HomePage = () => {
   return (
@@ -47,6 +48,7 @@ const HomePage = () => {
           </div>
         </Carousel>
       </>
+      <Home/>
     </div>
   );
 };

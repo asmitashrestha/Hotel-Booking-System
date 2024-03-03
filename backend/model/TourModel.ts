@@ -2,6 +2,12 @@ import mongoose, { trusted } from "mongoose";
 import { BookingType } from "../shared/types";
 import Booking, { bookingSchema } from "./BookingModel";
 
+export type RatingType ={
+  comment: string;
+  rating:number;
+}
+
+
 export type TourType = {
   _id: string;
   postedByUserId: string;
@@ -13,6 +19,7 @@ export type TourType = {
   facilities: string[];
   pricePerPackage: number;
   starRating: number;
+  ratings:RatingType[];
   imageUrls: string[];
   lastUpdated: Date;
   bookdate: Date;
@@ -90,6 +97,20 @@ const TourSchema = new mongoose.Schema<TourType>(
       min: 1,
       max: 5,
     },
+    ratings:[
+      {
+        comment:{
+          type:String,
+          required:true,
+        },
+        rating:{
+          type:Number,
+          required:true,
+          min:1,
+          max:5,
+        }
+      }
+    ],
     imageUrls: [
       {
         type: String,

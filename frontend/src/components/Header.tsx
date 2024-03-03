@@ -23,9 +23,7 @@ const Header = () => {
               <Link to="/my-bookings" className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">
                 My Bookings
               </Link>
-              {/* <Link to="/get-tour" className="mr-4">
-                Get Tour
-              </Link> */}
+             <Link to={'/chats'}>ChitChat</Link>
               
               <div className="text-xl p-3 relative bottom-5">
                 <SignOutButton/>

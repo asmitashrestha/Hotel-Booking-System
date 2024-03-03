@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import * as apiClient from '../api-client'
 import { AiFillStar } from "react-icons/ai"
 import GuestInfoForm from "../components/GuestInfoForm"
+import Experience from "../components/Experience"
 
 const Details = () => {
   const { tourId } = useParams()
@@ -44,6 +45,7 @@ const Details = () => {
          <GuestInfoForm pricePerPackage={tourdetail.pricePerPackage}
           tourId={tourdetail._id}/>
       </div>
+      <Experience />
     </div>
   )
 }
