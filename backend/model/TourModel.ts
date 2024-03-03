@@ -1,6 +1,5 @@
 import mongoose, { trusted } from "mongoose";
 import { BookingType } from "../shared/types";
-import Booking, { bookingSchema } from "./BookingModel";
 
 export type RatingType ={
   comment: string;
@@ -26,33 +25,33 @@ export type TourType = {
   bookings: BookingType[];
 };
 
-// export const bookingSchema = new mongoose.Schema<BookingType>({
-//   name:{
-//     type:String,
-//     required:true,
-//   },
-//   email:{
-//     type:String,
-//     required:true,
-//   },
-//   countPeople:{
-//     type:Number,
-//     required:true,
-//   },
-//   bookDate:{
-//     type:Date,
-//     required:false,
-//   },
-//   userId:{
-//     type:String,
-//     required:true,
-//   },
-//   totalCost:{
-//     type:Number,
-//     required:true,
-//   }
+export const bookingSchema = new mongoose.Schema<BookingType>({
+  name:{
+    type:String,
+    required:true,
+  },
+  email:{
+    type:String,
+    required:true,
+  },
+  countPeople:{
+    type:Number,
+    required:true,
+  },
+  bookDate:{
+    type:Date,
+    required:false,
+  },
+  userId:{
+    type:String,
+    required:true,
+  },
+  totalCost:{
+    type:Number,
+    required:true,
+  }
 
-// })
+})
 
 const TourSchema = new mongoose.Schema<TourType>(
   {

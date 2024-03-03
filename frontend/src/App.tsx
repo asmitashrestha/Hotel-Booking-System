@@ -12,6 +12,7 @@ import MyBooking from "./pages/MyBooking";
 import AdminNavigator from "./navigator/AdminNavigator";
 import HomePage from "./pages/HomePage";
 import ChatPage from "./components/chatPage";
+import Home from "./pages/Home";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/tour-available" element={<Home />} />
         <Route path="/register" element={<Register/>} />
         <Route path="/signin" element={<SignIn />} />
          <Route path="/searchtour" element={<Search/>} />

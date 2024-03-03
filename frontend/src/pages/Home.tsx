@@ -2,14 +2,11 @@
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as apiClient from "../api-client";
-import { useAppContext } from "../contexts/AppContext";
 import { FaLocationDot } from "react-icons/fa6";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SearchMenu from "../components/SearchBar";
 
 const Home = () => {
-  const { isLoggedIn } = useAppContext();
   const { data: tourData } = useQuery("fetchTours", apiClient.fetchTours, {
     onError: () => {},
   });
@@ -60,22 +57,9 @@ const Home = () => {
                         {tour.pricePerPackage}
                       </span>
                     </p>
-
-                    {/* {isLoggedIn ? (
-                      <Link
-                        to={"/details-page"}
-                        className="bg-blue-600 p-2 rounded"
-                      >
-                        View Details
-                      </Link>
-                    ) : (
-                      <button onClick={()=> toast.warning("Register to view more details")}>
-                        <Link to={"/signin"} className="bg-blue-600 p-2 rounded">
-                        SignIn
-                      </Link>
-                      </button>
-                    
-                    )} */}
+                  <div>
+                    <button className="font-semibold bg-green-900 rounded px-3 py-2 text-white">View More</button>
+                  </div>
                   </div>
                 </div>
               </div>

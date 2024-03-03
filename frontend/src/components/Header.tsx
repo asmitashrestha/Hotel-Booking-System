@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 import SignOutButton from "./SignOutButton";
-
+import Logo from '../assets/logo.jpeg'
 const Header = () => {
   const { isLoggedIn } = useAppContext();
 
@@ -9,11 +9,12 @@ const Header = () => {
     <div className="bg-blue-600 h-20 p-1">
       <div className="top-bar flex p-3">
         <div className="flex text-center">
+          <img src={Logo} alt="" className="logo-imgs"/>
           <Link
             to="/"
-            className="ml-5 font-bold text-3xl hover:text-green-900"
+            className="ml-1 mt-1 font-bold text-3xl hover:text-green-900"
           >
-            TravelHarbor.com
+            Travel<span className="text-green-900">Harbor</span>
           </Link>
         </div>
 
@@ -23,7 +24,7 @@ const Header = () => {
               <Link to="/my-bookings" className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">
                 My Bookings
               </Link>
-             <Link to={'/chats'}>ChitChat</Link>
+             <Link to={'/chats'}  className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">ChitChat</Link>
               
               <div className="text-xl p-3 relative bottom-5">
                 <SignOutButton/>

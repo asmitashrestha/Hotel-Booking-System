@@ -10,29 +10,25 @@ const MyTour = () => {
     return <span>No tour found</span>;
   }
   return (
-    <div className="space-y-5 p-4">
-      <span className="flex justify-between">
-        <h1 className="text-3xl font-bold">My Tour</h1>
-        <Link
-          to={"/addtour"}
-          className="flex bg-blue-600 text-white font-bold p-3 hover:bg-blue-200"
-        >
-          Add Tour
-        </Link>
+    <div className="bg-cyan-50 mt-0">
+      <div className="pt-10 ">
+      <span className="">
+        <h1 className="text-3xl font-bold flex justify-center text-center mb-20">My Tour</h1>
       </span>
-      <div className="m-4 flex flex-wrap justify-center">
+      <div className=" flex flex-wrap ">
         {tourData.map((tour, index) => (
           <div
             key={index}
-            className=" bg-teal-100 flex-wrap mt-2 ml-4 rounded border-cyan-100"
+            className=" bg-gray-300 flex-wrap mt-2 ml-4 
+            rounded border-cyan-100"
           >
             <div className="p-4">
-              {/* <img src={tour.imageUrls} alt="" className="w-80" /> */}
-              <h2 className="font-bold mt-1">Location {tour.city}</h2>
-              <p className="text-sm font-semibold text-gray-800">
-                {tour.description}
-              </p>
-
+              <img src={`${tour.imageUrls[0]}`} alt="" className="image-tour w-80 rounded" />
+              <div className="flex justify-between ">
+                <p className="font-semibold mt-1">Location:{tour.city}</p>
+              <p className="font-semibold mt-1">Price : {tour.pricePerPackage}</p>
+              </div>
+              
               <div className="flex justify-between ">
                 <p>
                   {" "}
@@ -50,17 +46,19 @@ const MyTour = () => {
                 </p>
               </div>
               <div className="flex justify-between mt-2">
-                <p>Price : {tour.pricePerPackage}</p>
-                <Link to={`/edit-tour/${tour._id}`} className="bg-blue-600 p-2 rounded">
-                  View Details
+                
+                <Link to={`/edit-tour/${tour._id}`} className="bg-green-800 text-white font-semibold text-xl px-8 py-2 rounded">
+                  Edit
                 </Link>
-                <Link to={`/delete-tour/${tour._id}`} className="bg-gray-900 text-white  p-2 rounded">Delete Tour</Link>
+                <Link to={`/delete-tour/${tour._id}`} className="bg-red-900 text-white font-semibold text-xl px-8 py-2 rounded">Delete</Link>
               </div>
             </div>
           </div>
         ))}
       </div>
     </div>
+    </div>
+    
   );
 };
 

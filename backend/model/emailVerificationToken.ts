@@ -34,10 +34,7 @@ emailVerificationTokenSchema.pre("save", async function(next) {
     next();
 });
 
-// emailVerificationTokenSchema.methods.compareToken = async function(token) {
-//     const result = await bcrypt.compare(token, this.token)
-//     return result
-// }
+
 emailVerificationTokenSchema.methods.compareToken = async function(token) {
     console.log("this.token:", this.token);
     if (typeof this.token !== 'string') {

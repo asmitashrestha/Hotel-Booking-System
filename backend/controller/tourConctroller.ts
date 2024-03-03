@@ -2,7 +2,6 @@ import cloudinary from "cloudinary";
 import Tour, { TourType } from "../model/TourModel";
 import { BookingType, TourSearchResponse } from "../shared/types";
 import { validationResult } from "express-validator";
-import Booking from "../model/BookingModel";
 import Stripe from "stripe";
 require('dotenv').config()
 const stripe= new Stripe(process.env.STRIPE_API_KEY as string);
@@ -374,4 +373,4 @@ const constructSearchQuery = (queryParams: any) => {
      });
    }
  };
- 
+

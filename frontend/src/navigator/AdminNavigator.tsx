@@ -9,10 +9,9 @@ import DeleteTour from "../pages/DeleteTour";
 import MyBooking from "../pages/MyBooking";
 import MyTour from "../pages/MyTour";
 import Booking from "../pages/Booking";
-
 import { useAppContext } from "../contexts/AppContext";
 import UserDetails from "../components/admin/BookingUserDetails";
-
+import '../index.css'
 export default function AdminNavigator() {
   const {isLoggedIn} = useAppContext()
   return (
