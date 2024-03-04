@@ -329,41 +329,49 @@ body {
 }
 
 .joinChatContainer {
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   text-align: center;
+  padding:70px 40px;
+  background-color: #dae1e2;
 }
 
 .joinChatContainer h3 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: #0b434d;
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .joinChatContainer input {
-  width: 210px;
+  width: 300px;
   height: 40px;
   margin: 7px;
-  border: 2px solid #43a047;
+  border: 2px solid none;
+  background-color: rgb(165, 165, 202);
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
 }
 
 .joinChatContainer button {
-  width: 225px;
-  height: 50px;
+  width: 300px;
+  height: 40px;
   margin: 7px;
   border: none;
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
-  background: #43a047;
+  background: #282928;
   color: #fff;
   cursor: pointer;
 }
 
 .joinChatContainer button:hover {
-  background: #2e7d32;
+  background: #d6dfd6;
+  color: #212121;
 }
 
 .chat-window {
@@ -393,16 +401,18 @@ body {
 
 .chat-window .chat-body {
   height: calc(450px - (45px + 70px));
-  border: 1px solid #263238;
+  border: 1px solid #f3f7f8;
+  padding-top: 4px;
+  border-radius: rounded;
   background: #fff;
   position: relative;
 }
 
 .chat-window .chat-body .message-container {
+  padding: 10px;
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  background-color: rgb(199, 247, 242);
 }
 
 .chat-window .chat-body .message-container::-webkit-scrollbar {
@@ -442,7 +452,8 @@ body {
 }
 
 #other .message-meta {
-  justify-content: flex-start;
+  display: flex;
+  justify-content: center;
   margin-left: 5px;
 }
 
@@ -451,8 +462,9 @@ body {
 }
 
 #you .message-content {
-  justify-content: flex-end;
-  background-color: cornflowerblue;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(92, 141, 233);
 }
 
 #you .message-meta {
@@ -472,7 +484,8 @@ body {
 
 .chat-window .chat-footer {
   height: 40px;
-  border: 1px solid #263238;
+  border: 1px solid #f1f3f5;
+  background-color: rgb(4, 4, 24);
   border-top: none;
   display: flex;
 }
@@ -500,14 +513,17 @@ body {
   font-size: 25px;
   color: lightgray;
 }
-
+.chat-footer input{
+  background-color: rgb(193, 193, 196);
+  border-radius: rounded;
+}
 .chat-window .chat-footer button:hover {
   color: #43a047;
 }
 
-.hide {
+/* .hide {
   opacity: 0 !important;
-}
+} */
 
 /* css for tour details page */
 .tour-detail{

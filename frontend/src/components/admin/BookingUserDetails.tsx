@@ -38,9 +38,10 @@ const UserDetails = ({ tourId }) => {
   console.log("Userdetails", userDetails);
 
   return (
-    <div className="tour-detail flex flex-wrap">
-      <h1 className="flex justify-center text-center">Booking User Details</h1>
-      {userDetails &&
+    <div className="tour-detail ">
+      <h1 className="flex justify-center text-center text-2xl pb-14 pt-1 font-mono text-green-800 font-bold">Booking User Details</h1>
+      <div className="flex flex-wrap justify-center" >
+        {userDetails &&
         userDetails.map((data, index) => {
           console.log("Data", data);
 
@@ -82,6 +83,8 @@ const UserDetails = ({ tourId }) => {
             </div>
           );
         })}
+      </div>
+      
     </div>
   );
 };

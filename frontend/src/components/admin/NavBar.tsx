@@ -28,7 +28,7 @@ export default function NavBar() {
             <NavItem to={"/get-tour"}>Get Tour</NavItem>
           </li>
           <li>
-            <NavItem to={"/fetch-user-details"}>User Details</NavItem>
+            <NavItem to={"/chats"}>ChitChat</NavItem>
           </li>
         </ul>
 

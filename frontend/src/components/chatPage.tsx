@@ -18,11 +18,11 @@ function ChatPage() {
   }
 
   return (
-    <div className="App">
+    <div className="flex text-center justify-center">
       {!showChat ? (
         <div className='joinChatContainer'>
-          <h3>Join Chat</h3>
-          <input type='text' placeholder='Ram...' onChange={(e) => { setName(e.target.value) }} />
+          <h3 className='flex justify-center text-xl text-gray-900'>Join Chat</h3>
+          <input type='text' placeholder='Ram...' onChange={(e) => { setName(e.target.value) }} className='px-40'/>
           <input type='text' placeholder='Room ID...' onChange={(e) => { setRoom(e.target.value) }} />
           <button onClick={joinRoom}>Join A Room</button>
         </div>

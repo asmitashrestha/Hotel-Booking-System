@@ -32,10 +32,10 @@ function Chat({socket,name,room}) {
 
     return (
         <div className='chat-window'>
-            <div className='chat-header'>
-                <p>Live Chat</p>
+            <div className='py-4 rounded bg-pink-900'>
+                <p className='text-xl font-bold text-white '>Live Chat</p>
             </div>
-            <div className='chat-body'>
+            <div className='chat-body rounded bg-blue-200 '>
             <ScrollToBottom className='message-container'>
                 {messageList.map((messageContent, index) => {
                     return (

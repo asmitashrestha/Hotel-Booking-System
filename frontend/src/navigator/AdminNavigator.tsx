@@ -12,6 +12,7 @@ import Booking from "../pages/Booking";
 import { useAppContext } from "../contexts/AppContext";
 import UserDetails from "../components/admin/BookingUserDetails";
 import '../index.css'
+import ChatPage from "../components/chatPage";
 export default function AdminNavigator() {
   const {isLoggedIn} = useAppContext()
   return (
@@ -34,6 +35,7 @@ export default function AdminNavigator() {
             isLoggedIn && <>
              <Route path="/fetch-user-details" element={<UserDetails tourId={''} />} />
           <Route path="/search-tour/:tourId/booking" element={<Booking />} />
+          <Route path="/chats" element={<ChatPage/>}/>
             </>
           }
          
