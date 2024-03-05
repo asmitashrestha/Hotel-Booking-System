@@ -22,6 +22,7 @@ function ChatPage() {
       {!showChat ? (
         <div className='joinChatContainer'>
           <h3 className='flex justify-center text-xl text-gray-900'>Join Chat</h3>
+          <p className='font-semibold text-lg text-green-950'>Join a room : <span className='text-yellow-700 font-bold text-xl'>200</span> </p>
           <input type='text' placeholder='Ram...' onChange={(e) => { setName(e.target.value) }} className='px-40'/>
           <input type='text' placeholder='Room ID...' onChange={(e) => { setRoom(e.target.value) }} />
           <button onClick={joinRoom}>Join A Room</button>

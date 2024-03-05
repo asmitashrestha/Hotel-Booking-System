@@ -16,17 +16,19 @@ const Header = () => {
           >
             Travel<span className="text-green-900">Harbor</span>
           </Link>
+          <Link to={'/services'} className=" text-xl font-semibold text-gray-800 hover:text-green-950  relative top-3 left-[200px]">Services</Link>
+         
         </div>
 
         <div className="header ml-[550px]">
           {isLoggedIn ? (
             <div className="navs flex p-2">
-              <Link to="/my-bookings" className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">
+              <Link to="/my-bookings" className="mr-4 text-lg font-semibold text-gray-800 hover:text-green-950">
                 My Bookings
               </Link>
-             <Link to={'/chats'}  className="mr-4 text-xl font-semibold text-gray-800 hover:text-green-950">ChitChat</Link>
+             <Link to={'/chats'}  className="mr-4 text-lg font-semibold text-gray-800 hover:text-green-950">ChitChat</Link>
               
-              <div className="text-xl p-3 relative bottom-5">
+              <div className="text-xl p-2 relative bottom-5">
                 <SignOutButton/>
               </div>
               

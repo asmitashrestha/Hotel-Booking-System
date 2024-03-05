@@ -216,7 +216,7 @@ export const paymentTour = async (req, res) => {
   const totalCost = tour.pricePerPackage * tour.countPeople;
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalCost,
-    currency: "gbp",
+    currency: "npr",
     metadata: {
       tourId,
       userId: req.userId,
