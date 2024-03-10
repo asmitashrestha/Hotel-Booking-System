@@ -2,7 +2,7 @@ import express from "express";
 import { check } from "express-validator";
 import verifyUserLogin from "../controller/authController";
 import verifyToken from "../middlewares/auth";
-import { bookingUserDetails, createNewUser, findUsers, verifyEmail } from "../controller/userController";
+import { bookingUserDetails, createNewUser, findUsers, forgetPassword, resetPassword, verifyEmail } from "../controller/userController";
 // const router = express.Router();
 const router = express();
 
@@ -19,6 +19,10 @@ router.post(
 );
 
 router.get('/register',verifyToken,findUsers)
+router.post("/forgot-password", forgetPassword);
+router.post("/reset-password", resetPassword);
+
+
 
 router.post(
   "/signin",

@@ -33,7 +33,7 @@ const Register = () => {
         autoClose: 500, // Adjust the duration the toast is displayed
         hideProgressBar: false,
       });
-      navigate('/')
+      navigate('/verify-email')
     },
     onError: (error: Error) => {
       console.log(error.message);

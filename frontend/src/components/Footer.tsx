@@ -8,9 +8,9 @@ const Footer = () => {
             <div className="footer">
                 <div className="foots ml-16 mt-11 ">
                     <div className="footer-left mb-5">
-                        <h1><span className='text-zinc-800 text-2xl font-serif font-semibold'>Travel</span> <span
-                         className='text-blue-700 text-2xl font-bold font-serif'>Harbor</span></h1>
-                        <p className='text-justify text-md text-zinc-900'>Lorem ipsum dolor sit amet consectetur <br /> adipisicing elit. Expedita, nam.</p>
+                        <h1><span className='text-white text-2xl font-serif font-semibold'>Travel</span> <span
+                         className='text-blue-300 text-2xl font-bold font-serif'>Harbor</span></h1>
+                        <p className='text-justify text-md text-white'>Lorem ipsum dolor sit amet consectetur <br /> adipisicing elit. Expedita, nam.</p>
                     </div>
                     <div className="footer-left ml-20 text-justify">
                         <h1 className='text-2xl font-bold justify-center '>Discover</h1>
@@ -46,7 +46,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="foot-div">
-                 <p className='foot-para justify-center text-center mt-4 mb-4 text-zinc-900 font-semibold'>Copyright 2023 design and
+                 <p className='foot-para justify-center text-center mt-4 mb-4 text-white font-semibold'>Copyright 2023 design and
                  developed by Asmita Shrestha & Aman Singh</p>
      
             </div>

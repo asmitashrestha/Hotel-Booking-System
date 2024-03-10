@@ -13,6 +13,11 @@ import AdminNavigator from "./navigator/AdminNavigator";
 import HomePage from "./pages/HomePage";
 import ChatPage from "./components/chatPage";
 import Home from "./pages/Home";
+import EmailVerification from "./pages/EmailVerification";
+import ForgotPassword from "./pages/ForgotPassword";
+import ConfirmPassword from "./pages/ConfirmPassword";
+import Services from "./pages/Services";
+import Aboutus from "./pages/Aboutus";
 
 
 const App = () => {
@@ -27,7 +32,15 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/tour-available" element={<Home />} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/verify-email" element={<EmailVerification/>} />
+        <Route path="/services" element={<Services/>} />
+        <Route path="/about-us" element={<Aboutus/>} />
+
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin/forget-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ConfirmPassword />} />
+
+
          <Route path="/searchtour" element={<Search/>} />
          {/* <Route path="/get-tour" element={<MyTour />} /> */}
             {/* <Route path="/details/$"/> */}

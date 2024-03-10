@@ -2,6 +2,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import SearchBar from "../components/SearchBar";
 import Home from "./Home";
+import Services from "./Services";
+import Aboutus from "./Aboutus";
 
 const HomePage = () => {
   return (
@@ -49,6 +51,8 @@ const HomePage = () => {
         </Carousel>
       </>
       <Home/>
+      <Services/>
+      <Aboutus/>
     </div>
   );
 };

@@ -39,16 +39,15 @@ export const createNewUser = async (req, res) => {
 
     // Sending OTP to user
     const transporter = nodemailer.createTransport({
-      host: 'sandbox.smtp.mailtrap.io',
-      port: 2525,
+      service: "gmail",
       auth: {
-        user: 'cfe76195695bed',
-        pass: '56b03a7882315e',
+        user: "travelharbor076@gmail.com",
+        pass: "ejojzmlkgqjusbet",
       },
     });
 
     await transporter.sendMail({
-      from: 'verification@reviewapp.com',
+      from: 'travelharbor076@gmail.com',
       to: email,
       subject: 'Email Verification',
       html: `
@@ -102,24 +101,23 @@ export const verifyEmail = async (req, res) => {
 
   const isMatched = await token.compareToken(OTP);
   if (!isMatched) {
-    return res.json({ error: "Please submit a valid OTP" });
+    return res.status(400).json({ error: "Please submit a valid OTP" });
   }
   user.isVerified = true;
   await user.save();
 
   await EmailVerificationToken.findByIdAndDelete(token._id);
 
-  var transport = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
     auth: {
-      user: "cfe76195695bed",
-      pass: "56b03a7882315e",
+      user: "travelharbor076@gmail.com",
+      pass: "ejojzmlkgqjusbet",
     },
   });
 
-  transport.sendMail({
-    from: "verification@reviewapp.com",
+  transporter.sendMail({
+    from: "travelharbor076@gmail.com",
     to: user.email,
     subject: "Welcome Email",
     html: "<h1>Welcome to our App</h1>",
@@ -152,6 +150,70 @@ export const findUsers = asyncHandler(async(req,res)=>{
   res.send(users)
   
 })
+
+export const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.json({ error: "Email is missing" });
+
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ error: "User not found" });
+
+
+  const resetPasswordUrl = `http://localhost:5173/reset-password?id=${user._id}`;
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "travelharbor076@gmail.com",
+      pass: "ejojzmlkgqjusbet",
+    },
+  });
+
+  transporter.sendMail({
+    from: "travelharbor076@gmail.com",
+    to: user.email,
+    subject: "Reset Password Link",
+    html: `
+        <p>Click here to reset password</p>
+        <a href='${resetPasswordUrl}'>Change Password</a>
+    
+      `,
+  });
+  res.json({ message: "Link sent to your email" });
+};
+
+export const resetPassword = async (req, res) => {
+  const { newPassword, userId } = req.body;
+
+  const user = await User.findById(userId);
+  const matched = await user.comparePassword(newPassword);
+  if (matched)
+    return res.status(400).json({
+      error: "The new password must be different from the old one",
+    });
+
+  user.password = newPassword;
+  await user.save();
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "travelharbor076@gmail.com",
+      pass: "ejojzmlkgqjusbet",
+    },
+  });
+
+  transporter.sendMail({
+    from: "travelharbor076@gmail.com",
+    to: user.email,
+    subject: "Password reset sucessfully",
+    html: `
+        <h1>Password reset sucessfully</h1>
+    
+      `,
+  });
+  res.json({ message: "Password changed sucessfully" });
+};
 
 export const bookingUserDetails = async (req, res) => {
   const userId = req.userId;

@@ -213,10 +213,10 @@ export const paymentTour = async (req, res) => {
       msg: "Tour not found",
     });
   }
-  const totalCost = tour.pricePerPackage * tour.countPeople;
+  const totalCost = tour.pricePerPackage;
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalCost,
-    currency: "npr",
+    currency: "gbp",
     metadata: {
       tourId,
       userId: req.userId,

@@ -12,21 +12,21 @@ const Header = () => {
           <img src={Logo} alt="" className="logo-imgs"/>
           <Link
             to="/"
-            className="ml-1 mt-1 font-bold text-3xl hover:text-green-900"
+            className="ml-1 mt-1 text-white font-bold text-3xl hover:text-green-900"
           >
             Travel<span className="text-green-900">Harbor</span>
           </Link>
-          <Link to={'/services'} className=" text-xl font-semibold text-gray-800 hover:text-green-950  relative top-3 left-[200px]">Services</Link>
+          <Link to={'/services'} className=" text-xl font-semibold text-white relative top-3 left-[200px]">Services</Link>
          
         </div>
 
         <div className="header ml-[550px]">
           {isLoggedIn ? (
-            <div className="navs flex p-2">
-              <Link to="/my-bookings" className="mr-4 text-lg font-semibold text-gray-800 hover:text-green-950">
+            <div className="navs flex p-2 text-white">
+              <Link to="/my-bookings" className="mr-4 text-lg font-semibold  hover:text-green-950">
                 My Bookings
               </Link>
-             <Link to={'/chats'}  className="mr-4 text-lg font-semibold text-gray-800 hover:text-green-950">ChitChat</Link>
+             <Link to={'/chats'}  className="mr-4 text-lg font-semibold  hover:text-green-950">ChitChat</Link>
               
               <div className="text-xl p-2 relative bottom-5">
                 <SignOutButton/>
