@@ -58,10 +58,6 @@ const Booking = () => {
             paymentIntent={paymentIntentData}
           />
         </Elements>
-
-        //   <BookingForm currentUser={currentUser}
-        //   paymentIntent ={paymentIntentData}/>
-        // </Elements>
       )}
     </div>
   );

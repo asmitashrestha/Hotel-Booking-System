@@ -9,41 +9,29 @@ const Aboutus = () => {
       <div className="flex justify-between flex-wrap mt-16">
         <div className="mb-5 bg-gray-100 p-4 rounded-sm shadow-amber-800 shadow-2xl w-[550px] ">
           <h1 className="text-center font-bold text-xl text-green-950">Who we are ?</h1>
-          <p className="font-semibold text-gray-800 text-sm p-5  mt-1">
+          <p className="font-semibold text-gray-800 text-sm p-5   bg-cyan-50 rounded shadow-blue-300 shadow-lg mt-9 mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing . 
             Expedita aliquam optio mollitia rerum sint excepturi
             omnis eius minima nemo sunt corrupti, vero veritatis 
             dolores, dolor tempora. Sed sequi impedit 
             incidunt.
+            </p>
+            <p className="font-semibold text-gray-800 text-sm p-5  mt-1  bg-cyan-50 rounded shadow-blue-300 shadow-lg mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing . 
             Expedita aliquam optio mollitia rerum sint excepturi
             omnis eius minima nemo sunt corrupti, vero veritatis 
             dolores, dolor tempora. Sed sequi impedit 
             incidunt.
+            </p>
+            <p  className="font-semibold text-gray-800 text-sm p-5  mt-1  bg-cyan-50 rounded shadow-blue-300 shadow-lg mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing . 
             Expedita aliquam optio mollitia rerum sint excepturi
             omnis eius minima nemo sunt corrupti, vero veritatis 
             dolores, dolor tempora. Sed sequi impedit 
             incidunt.
+            </p>
+            <p  className="font-semibold text-gray-800 text-sm p-5  mt-1  bg-cyan-50 rounded shadow-blue-300 shadow-lg">
             Lorem ipsum dolor sit amet consectetur adipisicing . 
-            Expedita aliquam optio mollitia rerum sint excepturi
-            omnis eius minima nemo sunt corrupti, vero veritatis 
-            dolores, dolor tempora. Sed sequi impedit 
-            incidunt.
-            Lorem ipsum dolor sit amet consectetur adipisicing . 
-            Expedita aliquam optio mollitia rerum sint excepturi
-            omnis eius minima nemo sunt corrupti, vero veritatis 
-            dolores, dolor tempora. Sed sequi impedit 
-            incidunt.
-            Lorem ipsum dolor sit amet consectetur adipisicing . 
-            Expedita aliquam optio mollitia rerum sint excepturi
-            omnis eius minima nemo sunt corrupti, vero veritatis 
-            dolores, dolor tempora. Sed sequi impedit 
-            incidunt.
-            Expedita aliquam optio mollitia rerum sint excepturi
-            omnis eius minima nemo sunt corrupti, vero veritatis 
-            dolores, dolor tempora. Sed sequi impedit 
-            incidunt.
             Expedita aliquam optio mollitia rerum sint excepturi
             omnis eius minima nemo sunt corrupti, vero veritatis 
             dolores, dolor tempora. Sed sequi impedit 
